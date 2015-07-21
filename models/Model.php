@@ -1,20 +1,20 @@
 <?php
-/*********************************
- * Utiliser Reflection pour
- * création des tables dans la BDD
- ********************************/
-class Model {
 
-  protected function insert() {}
+abstract class Model {
 
-  protected function update() {}
+  abstract public function insert($args);
 
-  protected function delete() {}
+  abstract public function update($args);
+
+  abstract public function delete($args);
+
+  abstract public function table_name ();
 
   protected function get_vars () {
     $model = get_called_class();
     $params = get_class_vars($model);
     $vars = array();
+    $vars['tablename'] = $this->table_name();
     foreach ($params as $k => $e) {
       $ft = new ReflectionProperty($model, $k);
       $comments = $ft->getDocComment();
@@ -31,15 +31,15 @@ class Model {
           }
         }
       }
-      $vars [] = $properties;
+      $vars ['fields'][] = $properties;
     }
     return $vars;
   }
 
-  public function import_db () {
+  public function migrate () {
     $vars = $this->get_vars();
-    $conn = new Connections("self");
-    $conn->connect();
+    $db = Connections::get($this->table_name());
+    $db->import_model($vars);
   }
 
 }

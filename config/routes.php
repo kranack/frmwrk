@@ -7,6 +7,7 @@
   $router->add('GET', '/test', 'TestController');
   $router->add('GET', '/infos', 'InfosController');
   $router->add('GET', '/user', 'UserController');
+  $router->add('GET', '/user/:name', 'UserController');
 
   //$router->add('PUT', '/put', 'PutController');
 

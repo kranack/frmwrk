@@ -17,4 +17,31 @@ class UserModel extends Model {
   */
   protected $username;
 
+
+  /**
+  * @field passwd
+  * @size 512
+  * @type varchar
+  */
+  protected $passwd;
+
+  /**
+  * @field role
+  * @type integer
+  */
+  protected $role;
+
+  public function table_name () {
+    return 'user';
+  }
+
+  public function insert ($args) {
+    $db = Connections::get('user');
+    $db->insert('user', $args);
+  }
+
+  public function update ($args) {}
+
+  public function delete ($args) {}
+
 }

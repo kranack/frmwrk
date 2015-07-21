@@ -3,9 +3,16 @@
 class UserController extends Controller {
 
 
-  public function index () {
+  public function index ($args) {
+    //var_dump(func_get_args());
+    print_r($args);
     $user = new UserModel();
-    $user->import_db();
+    $user->insert(array(
+      'uid'      => '',
+      'username' => 'kranack',
+      'passwd'   => 'shit happens',
+      'role'     => 0
+    ));
   }
 
 }

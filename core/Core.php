@@ -7,23 +7,34 @@
 *******************************************/
 class Core {
 
-  private static $_excpt = array('Exceptions');
+  private static $_excpt = array('Exceptions', 'Core');
   private static $_dir = __DIR__;
 
+  private static $__loaded = array();
+  private static $__priority = array('core\Exceptions\HTTPException');
+
   public static function require_all () {
-    $_files = self::_get_files_from_dir(self::$_dir);
-    foreach($_files as $_file) {
-      self::_require_file($_file);
+    //self::load_priority_files();
+    self::_require_directory(self::$_dir);
+  }
+
+  private static function load_priority_files () {
+    foreach (self::$__priority as $_file) {
+
+      if (!in_array($_file, self::$__loaded)) {
+        var_dump(self::$__loaded);
+        self::_require_file($_file);
+        self::$__loaded [] = $_file;
+      }
+
     }
-    /*$_models = self::_get_files_from_dir(MODELS_DIRECTORY);
-    foreach($_models as $_file) {
-      self::_require_file($_file);
-    }*/
   }
 
   private static function _require_file ($filename) {
     //$_filename = self::$_dir . DIRECTORY_SEPARATOR . $filename;
-    require_once($filename);
+    if (!in_array($filename, self::$_excpt)) {
+      require_once($filename);
+    }
     if ($p = get_parent_class($filename)) {
       if (!in_array($p, self::$_excpt)) {
         require_once(self::$_dir . DIRECTORY_SEPARATOR . $p . '.php');
@@ -33,6 +44,20 @@ class Core {
     if ($interfaces = class_implements($classname)) {
       foreach ($interfaces as $interface) {
         require_once(self::$_dir . DIRECTORY_SEPARATOR . $interface . '.php');
+      }
+    }
+  }
+
+  private static function _require_directory ($dir) {
+    $_files = self::_get_files_from_dir(self::$_dir);
+    var_dump($_files);
+    foreach($_files as $_file) {
+      if (!in_array($_file, self::$__loaded)) {
+        if (is_dir($_file)) {
+          self::_require_directory($_file);
+        }
+        self::_require_file($_file);
+        self::$__loaded [] = $_file;
       }
     }
   }
@@ -50,7 +75,7 @@ class Core {
         }
       }
     }
-
+    asort($files);
     return $files;
   }
 

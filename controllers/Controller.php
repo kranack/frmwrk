@@ -15,4 +15,10 @@ class Controller {
     $this->__model = new $model();
   }
 
+  public function exec ($method, $args) {
+    $_args = $args[0];
+    $this->$method($_args);
+  }
+
+
 }

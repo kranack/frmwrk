@@ -3,28 +3,25 @@
 class Connections {
 
 
-  private $__db = null;
+  private static $__db = array();
 
-  public function __construct ($db) {
-    try {
-      $this->_assign($db);
-    } catch (InvalidDatabaseException $e) {
-      print_r($e->getMessage());
+  public static function get ($name) {
+    if (!array_key_exists($name, self::$__db)) {
+      return null;
     }
+    return self::$__db[$name];
   }
 
-  private function _assign ($db) {
+  public static function add ($name, $db) {
+    self::_assign($name, $db);
+  }
+
+  private static function _assign ($name, $db) {
     if (get_class($db) === 'Database') {
-      $this->__db = $db;
+      self::$__db [$name] = $db;
     } else {
       throw new InvalidDatabaseException;
     }
-
-  }
-
-  public function connect () {
-    var_dump($this);
-    $this->__db->connect();
   }
 
 }

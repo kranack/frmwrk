@@ -8,4 +8,5 @@
   Config::load();
 
   require_once ('config' . DIRECTORY_SEPARATOR . 'autoload.php');
+  require_once ('config' . DIRECTORY_SEPARATOR . 'databases.php');
   require_once ('config' . DIRECTORY_SEPARATOR . 'routes.php');

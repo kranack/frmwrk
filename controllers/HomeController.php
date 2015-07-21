@@ -2,7 +2,7 @@
 
 class HomeController extends Controller {
 
-  public function index() {
+  public function index($args) {
     $this->__view->set_content_type("html");
     $this->__view->set_body('home', 'index.tpl');
     $this->__view->set_css(array('default.css'));
