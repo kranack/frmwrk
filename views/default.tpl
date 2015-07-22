@@ -12,14 +12,14 @@
     <header>
       <div class="ui attached stackable menu">
         <div class="ui container">
-          <a class="item">
+          <a class="item" href="/">
             <i class="home icon"></i> Home
           </a>
-          <a class="item">
-            <i class="grid layout icon"></i> Browse
+          <a class="item" href="/user">
+            <i class="users icon"></i> Users
           </a>
-          <a class="item">
-            <i class="mail icon"></i> Messages
+          <a class="item" href="">
+            <i class="mail icon"></i> Json
           </a>
           <div class="ui simple dropdown item">
             More

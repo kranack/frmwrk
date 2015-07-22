@@ -21,10 +21,10 @@ class Core {
     //self::method_invoke_all();
   }
 
-  private staic function load_hooks () {
+  private static function load_hooks () {
     $hooks = Config::get_hooks();
     foreach ($hooks as $hook) {
-      require_once ()
+      //require_once ();
     }
   }
 
