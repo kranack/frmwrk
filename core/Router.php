@@ -16,7 +16,7 @@ class Router {
   public function add ($type, $path, $controller, $method = 'index') {
     try {
       if (!in_array($type, array_keys($this->_routes))) {
-        throw new RouterTypeException("Type not valid (". $type .")");
+        throw new RouterTypeException($type);
       }
       $r = $this->extract_args($path);
       $callable = $this->set_callable($controller, $method);

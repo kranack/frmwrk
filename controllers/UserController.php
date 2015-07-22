@@ -15,4 +15,12 @@ class UserController extends Controller {
     ));
   }
 
+  public function post ($args) {
+    print_r($args);
+  }
+
+  public function post_json ($args) {
+    print_r(json_encode($args));
+  }
+
 }

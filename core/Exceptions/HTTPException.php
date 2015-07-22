@@ -6,17 +6,18 @@ class HTTPException extends Exception {
   private $_method;
   private $_error;
 
-  protected $__errors = array(
-    '403' => 'Forbidden',
-    '404' => 'Page Not Found',
-    '418' => 'I\'m a teapot'
-  );
+  private $_err_message;
+  private $_resp_message;
 
   public function __construct($path, $method, $error) {
     $this->_path = $path;
     $this->_method = $method;
     $this->_error = $error;
-    parent::__construct("Error " . $error . " " . $this->getMessageError());
+    $this->_err_message = Headers::set_response($error);
+    $this->_resp_message = Headers::get_response($error);
+
+    parent::__construct($error);
+    Headers::save ($this->_err_message);
   }
 
   function get_path () {
@@ -32,11 +33,7 @@ class HTTPException extends Exception {
   }
 
   function getMessageError() {
-    if (array_key_exists($this->_error, $this->__errors)) {
-      return $this->__errors[$this->_error];
-    }
-
-    return "";
+    return $this->_err_message;
   }
 
   function set_path ($_path) {

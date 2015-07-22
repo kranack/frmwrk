@@ -9,14 +9,23 @@ class Core {
 
   private static $_excpt = array('Exceptions', 'Core');
   private static $_dir = __DIR__;
+  private static $_hook_dir = '/hooks';
 
   private static $__loaded = array();
   private static $__priority = array();
 
   public static function require_all () {
-    //self::load_priority_files();
+    //self::load_hooks();
+    self::load_priority_files();
     self::_require_directory(self::$_dir);
     //self::method_invoke_all();
+  }
+
+  private staic function load_hooks () {
+    $hooks = Config::get_hooks();
+    foreach ($hooks as $hook) {
+      require_once ()
+    }
   }
 
   private static function load_priority_files () {
@@ -28,7 +37,6 @@ class Core {
         self::_require_file($_file);
         self::$__loaded [] = $_file;
       }
-
     }
   }
 
@@ -100,7 +108,7 @@ class Core {
     return $array;
   }
 
-  private function get_all_modules($interface = "Module") {
+  private function get_all_modules($interface = "Hooks") {
     return (self::get_all_classes_implementing_interfaces($interface));
   }
 
@@ -110,7 +118,7 @@ class Core {
   * @param mixed args...(Optionnal)
   * @return array of mixed results.
   */
-  private function method_invoke_all($method, $parameters = array(),    $merge = false, $interface = "Module") {
+  private function method_invoke_all($method, $parameters = array(),    $merge = false, $interface = "Hooks") {
     $r = array();
     $modules = self::get_all_modules($interface);
     foreach ($modules as $module) {

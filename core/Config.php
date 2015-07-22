@@ -13,6 +13,14 @@ class Config {
     }
   }
 
+  public static function get_hooks () {
+    if (empty(self::$__conf)) {
+      return null;
+    }
+
+    return self::$__conf;
+  }
+
   private static function _load_conf ($conf_file) {
     if (!file_exists($conf_file)) {
       return null;
@@ -24,8 +32,6 @@ class Config {
   private static function __parse_config ($config) {
     $conf = json_decode($config, true);
     self::$__conf = self::___extract_array_config_content($conf);
-    
-    var_dump(self::$__conf);
   }
 
   private static function ___extract_array_config_content ($config , $arr = array()) {
@@ -36,7 +42,7 @@ class Config {
 
     foreach ($keys as $key) {
       if (is_array($config[$key])) {
-        $tmp = self::__extract_array_config_content($config[$key], $arr);
+        $tmp = self::___extract_array_config_content($config[$key], $arr);
         $arr [$key] = $tmp;
       } else {
         $arr [$key] = $config[$key];

@@ -20,7 +20,7 @@ class Connections {
     if (get_class($db) === 'Database') {
       self::$__db [$name] = $db;
     } else {
-      throw new InvalidDatabaseException;
+      throw new InvalidDatabaseException($name, $db);
     }
   }
 

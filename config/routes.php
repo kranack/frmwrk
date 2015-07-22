@@ -9,7 +9,8 @@
   $router->add('GET', '/user', 'UserController');
   $router->add('GET', '/user/:name', 'UserController');
 
-  //$router->add('PUT', '/put', 'PutController');
+  //$router->add('POST', '/user/:name', 'UserController', 'post');
+  //$router->add('POST', '/user/:name/json', 'UserController', 'post_json');
 
   if (empty($_GET['r'])) {
     $route = '/';
@@ -20,6 +21,8 @@
   try {
     $method = strtoupper($_SERVER["REQUEST_METHOD"]);
     echo $router->search($method, $route);
-  } catch (Exception $e) {
-    print_r($e->getMessage());
+  } catch (HTTPException $e) {
+    $c = new HTTPErrorsController();
+    $func = "_".$e->getMessage();
+    $c->$func();
   }
