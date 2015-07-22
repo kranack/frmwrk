@@ -16,7 +16,7 @@ class HTTPException extends Exception {
     $this->_path = $path;
     $this->_method = $method;
     $this->_error = $error;
-    parent::__construct("Erreur " . $error . " " . $this->getMessageError());
+    parent::__construct("Error " . $error . " " . $this->getMessageError());
   }
 
   function get_path () {
@@ -32,7 +32,7 @@ class HTTPException extends Exception {
   }
 
   function getMessageError() {
-    if (array_key_exists($this->__errors[$this->_error])) {
+    if (array_key_exists($this->_error, $this->__errors)) {
       return $this->__errors[$this->_error];
     }
 

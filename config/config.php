@@ -24,4 +24,4 @@
   //define ('MODEL_PATH', ROOT_PATH . PATH_SEPARATORS . MODEL_DIRECTORY );
 
 
-  define ('DEFAULT_CONF_FILE', ROOT_DIRECTORY . 'config' . DIRECTORY_SEPARATOR . 'system.conf');
+  define ('DEFAULT_CONF_FILE', ROOT_DIRECTORY . 'config' . DIRECTORY_SEPARATOR . 'system.json');

@@ -1,0 +1,9 @@
+<?php
+
+interface Hooks {
+
+  public function info ();
+
+  public function system_init ();
+
+}

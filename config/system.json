@@ -1,0 +1,9 @@
+[
+  {
+    "hooks" : {
+      "pre_hooks" : {
+        "TestHook" : "system_init"
+      }
+    }
+  }
+]
