@@ -7,7 +7,9 @@ class HTTPException extends Exception {
   private $_error;
 
   protected $__errors = array(
-    '404' => 'Page Not Found'
+    '403' => 'Forbidden',
+    '404' => 'Page Not Found',
+    '418' => 'I\'m a teapot'
   );
 
   public function __construct($path, $method, $error) {
