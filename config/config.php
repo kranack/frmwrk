@@ -17,6 +17,8 @@
 
   define ('MODELS_DIRECTORY', 'models');
 
+  define ('HOOKS_DIRECTORY', 'hooks');
+
   define ('ROOT_DIRECTORY', $_SERVER['DOCUMENT_ROOT']);
 
   define ('ROOT_PATH' , '/');

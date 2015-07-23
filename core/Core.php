@@ -9,22 +9,31 @@ class Core {
 
   private static $_excpt = array('Exceptions', 'Core');
   private static $_dir = __DIR__;
-  private static $_hook_dir = '/hooks';
 
   private static $__loaded = array();
   private static $__priority = array();
 
-  public static function require_all () {
-    //self::load_hooks();
+  public static function require_all ($load_hooks = false) {
+    if ($load_hooks) {
+      self::load_hooks();
+    }
     self::load_priority_files();
     self::_require_directory(self::$_dir);
-    //self::method_invoke_all();
+    if ($load_hooks) {
+      self::load_hooks(false);
+    }
   }
 
-  private static function load_hooks () {
-    $hooks = Config::get_hooks();
-    foreach ($hooks as $hook) {
-      //require_once ();
+  private static function load_hooks ($load_before_core = true) {
+    $hooks = Config::get_hooks($load_before_core);
+    if ($hooks === null) {
+      return null;
+    }
+    require_once(self::$_dir . DIRECTORY_SEPARATOR . 'Hooks.php' );
+    foreach ($hooks as $class => $func) {
+      require_once(HOOKS_DIRECTORY . DIRECTORY_SEPARATOR . $class . '.php');
+      $c = new $class();
+      $c->$func();
     }
   }
 

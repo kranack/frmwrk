@@ -13,12 +13,20 @@ class Config {
     }
   }
 
-  public static function get_hooks () {
-    if (empty(self::$__conf)) {
+  public static function get_hooks ($load_before_core = true) {
+    if (empty(self::$__conf['hooks'])) {
       return null;
     }
 
-    return self::$__conf;
+    if ($load_before_core &&
+      isset(self::$__conf['hooks']['pre_hooks'])) {
+      return self::$__conf['hooks']['pre_hooks'];
+    } else if ((!$load_before_core) &&
+      isset(self::$__conf['hooks']['post_hooks'])) {
+      return self::$__conf['hooks']['post_hooks'];
+    } else {
+      return null;
+    }
   }
 
   private static function _load_conf ($conf_file) {
@@ -31,7 +39,10 @@ class Config {
 
   private static function __parse_config ($config) {
     $conf = json_decode($config, true);
+    /*var_dump($conf);
     self::$__conf = self::___extract_array_config_content($conf);
+    var_dump(self::$__conf);*/
+    self::$__conf = $conf[0];
   }
 
   private static function ___extract_array_config_content ($config , $arr = array()) {
