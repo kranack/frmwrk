@@ -13,9 +13,9 @@ class Security {
 
   /**
    * Hash function
-   * @param algo : algorithm to use
-   * @param data : data to hash
-   * @return hash of the data or null if algo does not exist
+   * @param algo (string) algorithm to use
+   * @param data (string) data to hash
+   * @return (string) hash of the data or null if algo does not exist
    */
   public static function hash ($algo, $data) {
     if (!in_array(strtolower($algo), hash_algos())) {
@@ -27,13 +27,13 @@ class Security {
 
 
   /**
-  * Encrypt function
-  * @param algo : algorithm to use
-  * @param data : data to encrypt
-  * @param mode : mode to use for the encryption
-  * @return array with encrypted data, key and iv size or null if the
-  *         algo or mode does not exist
-  */
+   * Encrypt function
+   * @param algo (string) algorithm to use
+   * @param data (string) data to encrypt
+   * @param mode (sting) mode to use for the encryption
+   * @return (array) with encrypted data, key and iv size or null if the
+   *         algo or mode does not exist
+   */
   public static function encrypt ($algo, $data, $mode = "cbc") {
     if (!in_array(strtolower($algo), mcrypt_list_algorithms())) {
       return null;
@@ -54,14 +54,14 @@ class Security {
   }
 
   /**
-  * Decrypt function
-  * @param ciphertext : data to decrypt
-  * @param algo : algo to use
-  * @param mode : mode used for the encryption
-  * @param key : key used for the encryption
-  * @param iv_size : iv size
-  * @return decrypted text
-  */
+   * Decrypt function
+   * @param ciphertext (string) data to decrypt
+   * @param algo (string) algo to use
+   * @param mode (string) mode used for the encryption
+   * @param key (string) key used for the encryption
+   * @param iv_size (integer) iv size
+   * @return (string) decrypted text
+   */
   public static function decrypt ($ciphertext, $algo, $mode, $key, $iv_size) {
     $_cipher = base64_decode($ciphertext);
     $iv_dec = substr($_cipher, 0, $iv_size);
@@ -71,20 +71,28 @@ class Security {
     return preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $r);
   }
 
+  /**
+   * Get supported algos function
+   * @return (array) list of supported algos
+   */
   public static function get_supported_algos () {
     return mcrypt_list_algorithms();
   }
 
-  private static function generate_random_key () {
-    $algo = '256';
+  /**
+   * Generate a random key
+   * @param algo (integer) algo to use
+   * @return (string) hexadecimal random key
+   */
+  private static function generate_random_key ($algo = 256) {
     switch ($algo) {
-      case '128' :
+      case 128 :
           $k = pack('H*', self::generate_random_hexa(16));
         break;
-      case '192' :
+      case 192 :
           $k = pack('H*', self::generate_random_hexa(24));
         break;
-      case '256' :
+      case 256 :
           $k = pack('H*', self::generate_random_hexa(32));
         break;
       default :
@@ -95,6 +103,11 @@ class Security {
     return $k;
   }
 
+  /**
+   * Get supported algos function
+   * @param size (integer) algo to use
+   * @return (array) list of supported algos
+   */
   private static function generate_random_hexa ($size) {
     $str = '';
     $l = strlen(self::$_alphanum);

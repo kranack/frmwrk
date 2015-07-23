@@ -3,6 +3,7 @@
 class Database {
 
   private $__env = null;
+  public $last_id = null;
 
   public function __construct ($conf = array()) {
     if (empty($conf)) {
@@ -15,19 +16,133 @@ class Database {
   }
 
   private function build() {
-
+    $this->last_id = 0;
   }
 
-  public function current () {
-    return $this;
+  public function pdo() {
+    $pdo = null;
+    $engine = $this->__env->engine;
+    $host = $this->__env->host;
+    $port = $this->__env->port;
+    $username = $this->__env->username;
+    $pwd = $this->__env->password;
+    $db = $this->__env->database;
+    $param = $engine . ':host=' . $host . ';port=' . $port . ';dbname=' . $db;
+    try {
+      $pdo = new PDO($param, $username, $pwd);
+    }
+    catch (Exception $e) {
+      die('Erreur : ' . $e->getMessage());
+    }
+    $pdo->exec("SET NAMES 'UTF8'");
+    return $pdo;
   }
 
-  public function connect () {
-    print_r("connect to db");
+  public function query($sql, $params = array(), $query = null) {
+    $pdo = $this->pdo();
+    //$sql = secure_string($sql, $params);
+    $query = $sql;
+    $b = $pdo->query($sql);
+
+    $this->last_id = $pdo->lastInsertId();
+    return $b;
+  }
+
+  public function exec($sql) {
+    $pdo = $this->pdo();
+    return $pdo->exec($sql);
+  }
+
+  public function fetch(PDOStatement $statement, $method = PDO::FETCH_OBJ) {
+    return $statement->fetch($method);
+  }
+
+  public function fetchAll(PDOStatement $statement, $method = PDO::FETCH_OBJ) {
+    return $statement->fetchAll($method);
+  }
+
+  public function insert($table, $values) {
+    $set = "";
+    $val = "";
+    $params = array();
+    foreach ($values as $key => $value) {
+      $set .=" $key,";
+      $val .=" " . $this->pdo()->quote($value) . ",";
+    }
+
+    $set = substr($set, 0, strlen($set) - 1);
+    $val = substr($val, 0, strlen($val) - 1);
+    $sql = "insert into $table ( $set ) value( $val )";
+
+    $q = $this->query($sql, $params);
+
+    return $q;
+  }
+
+  public function delete($table, $condition = 1, $array = array()) {
+    $sql = "delete from $table where $condition";
+    return $this->query($sql, $array);
+  }
+
+  public function update($table, $fields, $condition = 1, $params = array()) {
+    $value = "";
+    foreach ($fields as $k => $v) {
+      $value .= " $k=" . $this->pdo()->quote($v) . ",";
+      $params["%up_$k"] = $v;
+    }
+    $value = substr($value, 0, strlen($value) - 1);
+    $sql = "update $table set $value where $condition";
+    return $this->query($sql, $params);
+  }
+
+  public function select($table, $champ = array(), $condition = 1, $params = array()) {
+    $field = " ";
+    if (empty($champ)) {
+      $field = "*";
+    }
+    else {
+      foreach ($champ as $value)
+      $field .=" $value,";
+      $field = substr($field, 0, strlen($field) - 1);
+    }
+    $sql = "select $field from $table where $condition";
+
+    return $this->query($sql, $params);
   }
 
   public function import_model ($model_params) {
-    print_r($model_params);
+    if (!empty($model_params)) {
+      $this->_create_table($model_params);
+    }
+
+    return $this;
+  }
+
+  private function _create_table ($params) {
+    $tablename = $params['tablename'];
+
+    $sql = "CREATE TABLE IF NOT EXISTS `$tablename`(";
+    $properts = array();
+    $keys = array();
+    foreach ($params['fields'] as $param) {
+      $properts[$param['field']] = "`". $param['field'] ."` " . $param['type'];
+      if (isset($param["size"])) {
+        $properts[$param['field']].="(" . $param['size'] . ")";
+      }
+      if (isset($param["properties"])) {
+        if (in_array("primary", $param["properties"])) {
+          $keys [] = $param['field'];
+        }
+        if (in_array("autoincrement", $param["properties"])) {
+          $properts[$param['field']] .= " NOT NULL AUTO_INCREMENT";
+        }
+      }
+    }
+    $sql.= implode(",\n", $properts);
+    $sql .=",\nCONSTRAINT pk_$tablename PRIMARY KEY(`" . implode("`,`", $keys) . "`)";
+    $sql.=");";
+
+    $this->exec($sql);
   }
 
 

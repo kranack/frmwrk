@@ -57,6 +57,12 @@ class Headers {
     'ods' => 'application/vnd.oasis.opendocument.spreadsheet',
   );
 
+  private static $_HEADERS_RESP = array(
+    '403' => 'Forbidden',
+    '404' => 'Page Not Found',
+    '418' => 'I\'m a teapot',
+    '500' => 'Internal Server Error'
+  );
 
   public static function set_content ($type) {
     if (in_array($type, array_keys(self::$_HEADERS_TYPE))) {
@@ -66,12 +72,24 @@ class Headers {
     }
   }
 
-  public static function save ($content_type) {
-    header($content_type);
+  public static function save ($header) {
+    header($header);
   }
 
   public static function set_response ($code) {
-    return "HTTP/1.0  $code OK";
+    if (in_array($code, array_keys(self::$_HEADERS_RESP))) {
+      return 'HTTP/1.1  ' . $code . ' ' . self::$_HEADERS_RESP[$code];
+    } else {
+      throw new HeaderStatusException;
+    }
+  }
+
+  public static function get_response ($code) {
+    if (in_array($code, array_keys(self::$_HEADERS_RESP))) {
+      return self::$_HEADERS_RESP[$code];
+    } else {
+      throw new HeaderStatusException;
+    }
   }
 
   public static function set_charset ($charset) {
