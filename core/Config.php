@@ -45,6 +45,7 @@ class Config {
     self::$__conf = $conf[0];
   }
 
+  /* No longer used */
   private static function ___extract_array_config_content ($config , $arr = array()) {
     if (!is_array($config)) {
       return null;

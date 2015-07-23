@@ -25,7 +25,7 @@ class HTTPErrorsController extends Controller {
 
     $this->__view->set_content_type("html");
     $this->__view->set_body('errors', '500.tpl');
-    $this->__view->attach_data(array("title" => "404 - Internal Server Error"));
+    $this->__view->attach_data(array("title" => "500 - Internal Server Error"));
     $this->__view->display();
 
   }

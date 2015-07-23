@@ -25,8 +25,10 @@
   $post_db = new Database($posts);
   Connections::add('post', $post_db);
 
+  //Connections::add('test', "string");
+
   /* Migration */
   $user = new UserModel();
-  $user->migrate();
+  //$user->migrate();
   $post = new PostModel();
-  $post->migrate();
+  //$post->migrate();

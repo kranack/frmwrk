@@ -8,6 +8,15 @@ class HomeController extends Controller {
     $this->__view->set_css(array('default.css'));
     $this->__view->attach_data(array("title" => "Home"));
     $this->__view->display();
+
+
+    var_dump(Security::hash('sha256', 'test'));
+
+    $c = Security::encrypt('blowfish', 'test');
+    $e = Security::decrypt($c['ciphertext'], 'blowfish', 'cbc', $c['key'], $c['iv_size']);
+    var_dump('test : ' . $c['ciphertext']);
+    var_dump('test : ' . $e);
+
   }
 
   public function json() {

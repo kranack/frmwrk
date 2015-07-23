@@ -13,14 +13,21 @@ class Connections {
   }
 
   public static function add ($name, $db) {
-    self::_assign($name, $db);
+    try {
+      self::_assign($name, $db);
+    } catch (InvalidDatabaseException $e) {
+
+    }
   }
 
   private static function _assign ($name, $db) {
+    if (!is_object($db)) {
+      throw new InvalidDatabaseException($name, $db);
+    }
     if (get_class($db) === 'Database') {
       self::$__db [$name] = $db;
     } else {
-      throw new InvalidDatabaseException($name, $db);
+      throw new InvalidDatabaseException($name, get_class($db));
     }
   }
 
