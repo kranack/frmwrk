@@ -5,6 +5,7 @@
   require_once (CORE_DIRECTORY . DIRECTORY_SEPARATOR . 'Core.php');
 
   Config::load();
+  Config::load_modules(true);
   Core::require_all();
 
   require_once ('config' . DIRECTORY_SEPARATOR . 'autoload.php');

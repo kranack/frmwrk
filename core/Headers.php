@@ -78,7 +78,7 @@ class Headers {
 
   public static function set_response ($code) {
     if (in_array($code, array_keys(self::$_HEADERS_RESP))) {
-      return 'HTTP/1.1  ' . $code . ' ' . self::$_HEADERS_RESP[$code];
+      return 'HTTP/1.1 ' . $code . ' ' . self::$_HEADERS_RESP[$code];
     } else {
       throw new HeaderStatusException;
     }

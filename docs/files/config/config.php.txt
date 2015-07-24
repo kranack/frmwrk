@@ -1,10 +1,10 @@
 <?php
-/******************************************
+/**
  * @file config.php
  * @author Damien Calesse
  * @date 18/07/2015
  * @description Config file for framework
- ******************************************/
+ */
 
  if (PATH_SEPARATOR === ';') {
    define('PATH_SEPARATORS', '/', true);
@@ -18,6 +18,12 @@
   define ('MODELS_DIRECTORY', 'models');
 
   define ('HOOKS_DIRECTORY', 'hooks');
+
+  define ('MODULES_DIRECTORY', 'modules');
+
+  define ('LOG_DIRECTORY', 'logs');
+
+  define ('DEFAULT_LOG_FILE', 'log.txt');
 
   define ('ROOT_DIRECTORY', $_SERVER['DOCUMENT_ROOT']);
 

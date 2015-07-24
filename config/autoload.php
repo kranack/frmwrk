@@ -1,11 +1,11 @@
 <?php
-/************************************
-*
-*	@file=autoload.php
-*	@description=Autoload function (seek & load)
-*	@author=Damien Calesse
-*
-************************************/
+/**
+ *
+ *	@file=autoload.php
+ *	@description=Autoload function (seek & load)
+ *	@author=Damien Calesse
+ *
+ */
 
 function __autoload ($classname) {
   $seek_dir = '';

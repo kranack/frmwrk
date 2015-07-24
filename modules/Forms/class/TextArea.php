@@ -1,0 +1,50 @@
+<?php
+
+  namespace Modules\Forms;
+
+class TextArea extends Element {
+
+  private $_cols;
+  private $_rows;
+
+  public function __construct ($name, $id = null, $class = null) {
+    parent::__construct ($name, $id, $class);
+
+    return $this;
+  }
+
+  public function size ($cols, $rows = null) {
+    if ($rows !== null) {
+      $this->_rows = $rows;
+    }
+    $this->_cols = $cols;
+
+    return $this;
+  }
+
+  public function placeholder ($placeholder) {
+    $this->_placeholder = $placeholder;
+
+    return $this;
+  }
+
+  public function display () {
+    return $this->render();
+  }
+
+  protected function render () {
+    $render = '<textarea';
+    if ($this->_id != null) {
+      $render .= ' id="'. $this->_id .'"';
+    }
+    if ($this->_class != null) {
+      $render .= ' class="'. $this->_class .'"';
+    }
+    $render .= ' name="'. $this->_name .'" >';
+    $render .= $this->_placeholder;
+    $render .= '</textarea>';
+
+    return $render;
+  }
+
+}

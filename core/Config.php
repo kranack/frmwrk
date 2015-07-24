@@ -13,6 +13,10 @@ class Config {
     }
   }
 
+  public static function load_modules ($bool = true) {
+    Core::enable("modules");
+  }
+
   public static function get_hooks ($load_before_core = true) {
     if (empty(self::$__conf['hooks'])) {
       return null;

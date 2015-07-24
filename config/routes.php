@@ -8,6 +8,7 @@
   $router->add('GET', '/infos', 'InfosController');
   $router->add('GET', '/user', 'UserController');
   $router->add('GET', '/user/:name', 'UserController');
+  $router->add('GET', '/security', 'SecurityController');
 
   //$router->add('POST', '/user/:name', 'UserController', 'post');
   //$router->add('POST', '/user/:name/json', 'UserController', 'post_json');
