@@ -20,5 +20,12 @@ class HeadersTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals($charset, $utf8);
   }
 
+  public function testMustBeFalse () {
+    $header = \Headers::set_response ('404');
+
+    $header403 = "HTTP/1.1 403 Page Not Found";
+    $this->assertFalse($header === $header403);
+  }
+
 }
 

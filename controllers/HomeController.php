@@ -9,9 +9,7 @@ class HomeController extends Controller {
     $this->__view->attach_data(array("title" => "Home"));
     $this->__view->display();
 
-    \Log::dump();
-    \Log::drop();
-    \Log::dump();
+    var_dump(Tools::ip());
   }
 
   public function json() {

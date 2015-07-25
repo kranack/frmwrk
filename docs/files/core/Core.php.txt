@@ -36,6 +36,7 @@ class Core {
     } else {
       if (!in_array($file, self::$_excpt)) {
         require_once($dir . DIRECTORY_SEPARATOR . $file);
+        self::$__loaded [] = $dir . DIRECTORY_SEPARATOR . $file;
       }
     }
   }
@@ -156,18 +157,32 @@ class Core {
     if (empty($files)) {
       return null;
     }
-    foreach ($files as $module) {
-      $classname = ltrim(preg_replace('/\\.[^.\\s]{3,4}$/', '', strrchr($module, "\\")), '\\');
+    usort($files, function ($a, $b) {
+      if (strpos(strtolower($a), "element") !== false) {
+        return 0;
+      } elseif (substr($a, -8) === "form.php") {
+        return 1;
+      } else {
+        return 2;
+      }
+    });
 
+    foreach ($files as $module) {
+      /* Get Classname and namespace */
+      $classname = ltrim(preg_replace('/\\.[^.\\s]{3,4}$/', '', strrchr($module, "\\")), '\\');
+      $namespace = ucfirst(str_replace('.php', '', $module));
+
+      /* Get parent class and require class */
       self::__get_parent_classes($classname);
       require_once ($module);
 
+      /* If it's a module, launch the system_init function */
       if (strpos(strtolower($classname), "module") !== false) {
-        $m = new $classname();
+        $m = new $namespace();
         $func = "system_init";
         $m->$func();
       }
-      self::$__loaded [] = $classname;
+      self::$__loaded [] = $namespace;
     }
   }
 

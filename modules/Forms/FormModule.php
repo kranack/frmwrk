@@ -13,12 +13,19 @@ class FormModule implements \Module {
   }
 
   public static function system_init () {
+    if (!self::is_enabled()) {
+      return null;
+    }
     if (!\Core::is_loaded("Modules\Forms\Form")) {
       //\Log::record(__FILE__, "Form module not loaded");
     }
     self::$__enabled = true;
     $path = __DIR__ . DIRECTORY_SEPARATOR;
     \Core::require_file($path . 'class', 'Element.php');
+  }
+
+  public static function is_enabled () {
+    return self::$__enabled;
   }
 
   public static function enable () {

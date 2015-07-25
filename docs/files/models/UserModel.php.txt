@@ -11,24 +11,24 @@ class UserModel extends Model {
   protected $uid;
 
   /**
-  * @field username
-  * @size 255
-  * @type varchar
-  */
+   * @field username
+   * @size 255
+   * @type varchar
+   */
   protected $username;
 
 
   /**
-  * @field passwd
-  * @size 512
-  * @type varchar
-  */
+   * @field passwd
+   * @size 512
+   * @type varchar
+   */
   protected $passwd;
 
   /**
-  * @field role
-  * @type integer
-  */
+   * @field role
+   * @type integer
+   */
   protected $role;
 
   public function table_name () {
