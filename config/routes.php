@@ -4,6 +4,7 @@
 
   $router->add('GET', '/', 'HomeController');
   $router->add('GET', '/json', 'HomeController', 'json');
+  $router->add('GET', '/contact', 'ContactController');
   $router->add('GET', '/test', 'TestController');
   $router->add('GET', '/infos', 'InfosController');
   $router->add('GET', '/user', 'UserController');

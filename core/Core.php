@@ -36,6 +36,7 @@ class Core {
     } else {
       if (!in_array($file, self::$_excpt)) {
         require_once($dir . DIRECTORY_SEPARATOR . $file);
+        self::$__loaded [] = $dir . DIRECTORY_SEPARATOR . $file;
       }
     }
   }
@@ -156,6 +157,16 @@ class Core {
     if (empty($files)) {
       return null;
     }
+    usort($files, function ($a, $b) {
+      if (strpos(strtolower($a), "element") !== false) {
+        return 0;
+      } elseif (substr($a, -8) === "form.php") {
+        return 1;
+      } else {
+        return 2;
+      }
+    });
+
     foreach ($files as $module) {
       /* Get Classname and namespace */
       $classname = ltrim(preg_replace('/\\.[^.\\s]{3,4}$/', '', strrchr($module, "\\")), '\\');
@@ -171,7 +182,7 @@ class Core {
         $func = "system_init";
         $m->$func();
       }
-      self::$__loaded [] = $classname;
+      self::$__loaded [] = $namespace;
     }
   }
 

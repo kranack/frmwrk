@@ -18,18 +18,24 @@ class Log {
     if ($log === null) {
       return null;
     }
-    $path = self::$_dir . DIRECTORY_SEPARATOR . self::$_file;
+    $path = self::_get_path();
     self::_write($path, $file, $log);
   }
 
   public static function dump () {
-    $path = self::$_dir . DIRECTORY_SEPARATOR . self::$_file;
+    $path = self::_get_path();
     $c = self::_get($path);
     var_dump($c);
   }
 
-  public static function drop () {
+  public static function get () {
+    $path = self::_get_path();
+    return self::_get($path);
+  }
 
+  public static function drop () {
+    $handle = fopen (self::_get_path(), "w+");
+    fclose($handle);
   }
 
   private static function _set ($path) {
@@ -39,6 +45,10 @@ class Log {
     self::$_file = $file;
   }
 
+  public static function _get_path () {
+    return self::$_dir . DIRECTORY_SEPARATOR . self::$_file;
+  }
+
   private static function _get ($path) {
     return file_get_contents ($path);
   }
@@ -46,7 +56,7 @@ class Log {
   private static function _write ($path, $file, $log) {
     date_default_timezone_set ("Europe/Paris");
     $datetime = date ('d-m-Y H:i:s');
-    $line = "[$datetime] : $log ($file) \r\n";
+    $line = "[$datetime] : $log ($file)\r\n";
     file_put_contents ($path, $line, FILE_APPEND);
   }
 }

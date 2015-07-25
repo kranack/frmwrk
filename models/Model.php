@@ -42,4 +42,8 @@ abstract class Model {
     $db->import_model($vars);
   }
 
+  public function get_array () {
+    return $this->get_vars();
+  }
+
 }
