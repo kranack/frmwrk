@@ -26,20 +26,24 @@ class View {
     $this->__view_root_path = ROOT_PATH .  'views' . PATH_SEPARATORS;
     $this->__cache_root_path = 'cache' . PATH_SEPARATORS;
 
-    $this->__enable_cache = false;
+    $this->__enable_cache = true;
   }
 
   public function display () {
-    /*if ($this->__enable_cache) {
-      if ($this->_cache_file != null) {
-        unlink($this->__cache_root_path . $this->_cache_file);
-      }
-      $this->_cache_file = md5(uniqid().$this->_template.$this->_body.time());
-    }
-
-    $this->set_cache();*/
     $this->__data = (object) $this->__data;
-    echo $this->render();
+    $__content = $this->render();
+    if ($this->__enable_cache) {
+      Cache::restore_from_db();
+      $content = Cache::restore ($this->_template, $this->_body);
+      if ($content === null) {
+        Cache::save($this->_template, $this->_body, $__content);
+        echo $__content;
+      } else {
+        echo $content;
+      }
+    } else {
+      echo $__content;
+    }
   }
 
   public function set_template ($template) {
@@ -63,9 +67,6 @@ class View {
     if ($this->_body !== null) {
       $__body_filename = ROOT_DIRECTORY . 'views' . DIRECTORY_SEPARATOR . $this->_body;
     }
-    /* Get file contents */
-    //$__tpl = file_get_contents($__template_filename);
-    //$__bdy = file_get_contents($__body_filename);
 
     /* Add content to data */
     $this->__data = array_merge($this->__data, $data);
@@ -75,7 +76,6 @@ class View {
       require_once ($__body_filename);
       $this->__data['body'] = ob_get_clean();
     }
-    //$this->__view_content = preg_replace_callback("/{{([A-Z]+)}}/", array($this, 'substitute_match'), $__tpl);
 
     return $this;
   }

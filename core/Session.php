@@ -4,7 +4,7 @@
 
 class Session {
 
-  $__cookie_enabled = false;
+  private $__cookie_enabled = false;
 
   public function start () {
     return session_start();

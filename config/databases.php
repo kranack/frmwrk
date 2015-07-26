@@ -20,10 +20,21 @@
     'database'  => 'posts'
   );
 
+  $core = array(
+    'engine'    => 'mysql',
+    'host'       => 'localhost',
+    'username'  => 'root',
+    'password'   => '',
+    'port'      => '3306',
+    'database'  => 'core'
+  );
+
   $user_db = new Database($users);
   Connections::add('user', $user_db);
   $post_db = new Database($posts);
   Connections::add('post', $post_db);
+  $core_db = new Database($core);
+  Connections::add('core', $core_db);
 
   //Connections::add('test', "string");
 
