@@ -28,24 +28,9 @@ class Select extends Element {
   }
 
   protected function render () {
-    $render = '<select';
-    if ($this->_id != null) {
-      $render .= ' id="'. $this->_id .'"';
-    }
-    if ($this->_class != null) {
-      $render .= ' class="'. $this->_class .'"';
-    }
-    $render .= ' name="'. $this->_name .'" >';
-
-    foreach ($this->_opts as $opt) {
-      $o = $opt->get();
-      $render .= '<option value="' . $o->value . '">';
-      $render .= $o->text . '</option>';
-    }
-
-    $render .= '</select>';
-
-    return $render;
+    ob_start();
+    require ($this->__template_path . 'select.tpl');
+    return ob_get_clean();
   }
 
 }

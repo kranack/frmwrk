@@ -96,4 +96,8 @@ class Headers {
     return "charset=$charset";
   }
 
+  public static function location ($url) {
+    return "Location: $url";
+  }
+
 }

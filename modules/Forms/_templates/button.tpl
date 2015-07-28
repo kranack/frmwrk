@@ -1,0 +1,1 @@
+<button type="<?php echo $this->_type; ?>" <?php echo (isset($this->_id)) ? 'id="' . $this->_id . '"' : ''; echo (isset($this->_class)) ? ' class="' . $this->_class . '"' : ''; ?>><?php echo $this->_text; ?></button>

@@ -1,0 +1,1 @@
+<label <?php echo (isset($this->_id)) ? 'id="' . $this->_id . '"' : ''; echo (isset($this->_class)) ? ' class="' . $this->_class . '"' : '';?> for="<?php echo $this->_name; ?>"><?php echo $this->_text; ?></label>

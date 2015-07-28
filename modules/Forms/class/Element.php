@@ -8,13 +8,14 @@ abstract class Element {
   protected $_id;
   protected $_class;
   protected $_placeholder;
+  protected $__template_path;
 
   public function __construct ($name, $id, $class) {
     $this->_name = $name;
     $this->_id = $id;
     $this->_class = $class;
     $this->_placeholder = null;
-
+    $this->__template_path = '/modules/Forms/_templates/';
     return $this;
   }
 

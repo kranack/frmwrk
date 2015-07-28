@@ -6,34 +6,34 @@ class Session {
 
   private $__cookie_enabled = false;
 
-  public function start () {
+  public static function start () {
     return session_start();
   }
 
-  public function destroy () {
+  public static function destroy () {
     return session_destroy();
   }
 
-  public function status () {
+  public static function status () {
     return session_status();
   }
 
-  public function reset () {
+  public static function reset () {
     return session_reset();
   }
 
-  public function get ($key = null) {
+  public static function get ($key = null) {
     if ($key == null) {
       return $_SESSION;
     }
     return $_SESSION[$key];
   }
 
-  public function set_cookie ($key, $value) {
+  public static function set_cookie ($key, $value) {
     return setcookie($key, $value);
   }
 
-  public function get_cookie ($key = null) {
+  public static function get_cookie ($key = null) {
     if ($key == null) {
       return $_COOKIE;
     }

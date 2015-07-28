@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login Admin</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/vendor/semantic-ui/semantic.min.css">
+      </head>
+  <body>
+    <header>
+      <div class="ui attached stackable menu">
+        <div class="ui container">
+          <a class="item" href="/">
+            <i class="home icon"></i> Home
+          </a>
+          <a class="item" href="/user">
+            <i class="users icon"></i> Users
+          </a>
+          <a class="item" href="">
+            <i class="mail icon"></i> Json
+          </a>
+          <div class="ui simple dropdown item">
+            More
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              <a class="item"><i class="edit icon"></i> Edit Profile</a>
+              <a class="item"><i class="globe icon"></i> Choose Language</a>
+              <a class="item"><i class="settings icon"></i> Account Settings</a>
+            </div>
+          </div>
+          <div class="right item">
+            <div class="ui input"><input placeholder="Search..." type="text"></div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="ui container">
+      <pre class='xdebug-var-dump' dir='ltr'>
+<b>array</b> <i>(size=4)</i>
+  'charset' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'utf-8'</font> <i>(length=5)</i>
+  'css' <font color='#888a85'>=&gt;</font> 
+    <b>array</b> <i>(size=0)</i>
+      <i><font color='#888a85'>empty</font></i>
+  'title' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Login Admin'</font> <i>(length=11)</i>
+  'form' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'&lt;form class=&quot;ui form&quot; method=&quot;POST&quot; action=&quot;/admin/login&quot;&gt;&#10;&lt;div class=&quot;field&quot;&gt;&#10;&lt;label  for=&quot;login&quot;&gt;Login&lt;/label&gt;&#10;&lt;input type=&quot;text&quot;  name=&quot;login&quot;&gt;&#10;&lt;/div&gt;&#10;&lt;div class=&quot;field&quot;&gt;&#10;&lt;label  for=&quot;adminpwd&quot;&gt;Password&lt;/label&gt;&#10;&lt;input type=&quot;password&quot;  name=&quot;adminpwd&quot;&gt;&#10;&lt;/div&gt;&#10;&lt;button type=&quot;submit&quot; &gt;Connexion&lt;/button&gt;&#10;&lt;/form&gt;&#10;'</font> <i>(length=312)</i>
+</pre>    </div>
+  </body>
+</html>

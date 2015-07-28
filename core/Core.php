@@ -174,7 +174,9 @@ class Core {
 
       /* Get parent class and require class */
       self::__get_parent_classes($classname);
-      require_once ($module);
+      if (!(substr($module, -strlen(".tpl")) === ".tpl")) {
+        require_once ($module);
+      }
 
       /* If it's a module, launch the system_init function */
       if (strpos(strtolower($classname), "module") !== false) {

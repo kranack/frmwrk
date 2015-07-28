@@ -1,11 +1,12 @@
 <?php
-/*******************************************
+/**
  * View Class
+ * @file View.php
  * @author Damien Calesse
  * @date 18/07/2015
  * @description View class for templating
  *              and page caching
- *******************************************/
+ **/
 class View {
 
   private $_template = null;
@@ -26,7 +27,7 @@ class View {
     $this->__view_root_path = ROOT_PATH .  'views' . PATH_SEPARATORS;
     $this->__cache_root_path = 'cache' . PATH_SEPARATORS;
 
-    $this->__enable_cache = true;
+    $this->__enable_cache = false;
   }
 
   public function display () {

@@ -2,14 +2,16 @@
 
   namespace Modules\Forms;
 
-/* TODO: Move html to template */
+/* TODO: FOR LIE A L'ID PUTAIN DE MERDE T'ES CON OU QUOI?!!! */
 class Form {
 
   private $_objs = array();
+  private $__template_path;
 
   public function __construct ($type, $action) {
     $this->_type = $type;
     $this->_action = $action;
+    $this->__template_path = '/modules/Forms/_templates/';
 
     return $this;
   }
@@ -44,17 +46,9 @@ class Form {
   }
 
   private function render () {
-    $render = '<form type="' . $this->_type . '" action="' . $this->_action . '">';
-
-    foreach ($this->_objs as $type) {
-      foreach ($type as $t) {
-        $render .= $t->display();
-      }
-    }
-
-    $render .= '</form>';
-
-    return $render;
+    ob_start();
+    require ($this->__template_path . 'form.tpl');
+    return ob_get_clean();
   }
 
 }

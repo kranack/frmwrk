@@ -22,17 +22,9 @@ class Button extends Element {
   }
 
   protected function render () {
-    $render = '<button type="'. $this->_type .'"';
-    if ($this->_id != null) {
-      $render .= ' id="'. $this->_id .'"';
-    }
-    if ($this->_class != null) {
-      $render .= ' class="'. $this->_class .'"';
-    }
-    $render .= ' name="'. $this->_name .'" >';
-    $render .= $this->_text . '</button>';
-
-    return $render;
+    ob_start();
+    require ($this->__template_path . 'button.tpl');
+    return ob_get_clean();
   }
 
 }

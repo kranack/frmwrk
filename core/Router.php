@@ -13,6 +13,14 @@ class Router {
     $this->_routes = array('GET' => array(), 'POST' => array(), 'PUT' => array(), 'DELETE' => array());
   }
 
+  public function get ($path, $controller, $method = 'index') {
+    $this->add('GET', $path, $controller, $method);
+  }
+
+  public function post ($path, $controller, $method = 'index') {
+    $this->add('POST', $path, $controller, $method);
+  }
+
   public function add ($type, $path, $controller, $method = 'index') {
     try {
       if (!in_array($type, array_keys($this->_routes))) {

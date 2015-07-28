@@ -33,18 +33,9 @@ class TextArea extends Element {
   }
 
   protected function render () {
-    $render = '<textarea';
-    if ($this->_id != null) {
-      $render .= ' id="'. $this->_id .'"';
-    }
-    if ($this->_class != null) {
-      $render .= ' class="'. $this->_class .'"';
-    }
-    $render .= ' name="'. $this->_name .'" >';
-    $render .= $this->_placeholder;
-    $render .= '</textarea>';
-
-    return $render;
+    ob_start();
+    require ($this->__template_path . 'textarea.tpl');
+    return ob_get_clean();
   }
 
 }

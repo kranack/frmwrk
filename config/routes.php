@@ -2,14 +2,17 @@
 
   $router = new Router;
 
-  $router->add('GET', '/', 'HomeController');
-  $router->add('GET', '/json', 'HomeController', 'json');
-  $router->add('GET', '/contact', 'ContactController');
-  $router->add('GET', '/test', 'TestController');
-  $router->add('GET', '/infos', 'InfosController');
-  $router->add('GET', '/user', 'UserController');
-  $router->add('GET', '/user/:name', 'UserController');
-  $router->add('GET', '/security', 'SecurityController');
+  $router->get('/', 'HomeController');
+  $router->get('/admin', 'AdminController');
+  $router->get('/admin/login', 'AdminController', 'login');
+  $router->post('/admin/login', 'AdminController', 'login');
+  $router->get('/json', 'HomeController', 'json');
+  $router->get('/contact', 'ContactController');
+  $router->get('/test', 'TestController');
+  $router->get('/infos', 'InfosController');
+  $router->get('/user', 'UserController');
+  $router->get('/user/:name', 'UserController');
+  $router->get('/security', 'SecurityController');
 
   //$router->add('POST', '/user/:name', 'UserController', 'post');
   //$router->add('POST', '/user/:name/json', 'UserController', 'post_json');
