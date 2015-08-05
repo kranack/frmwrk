@@ -22,11 +22,19 @@ class Session {
     return session_reset();
   }
 
+  public static function set ($key, $value) {
+    $_SESSION[$key] = $value;
+  }
+
   public static function get ($key = null) {
     if ($key == null) {
       return $_SESSION;
     }
-    return $_SESSION[$key];
+    if (array_key_exists($key, $_SESSION)) {
+      return $_SESSION[$key];
+    }
+    
+    return null;
   }
 
   public static function set_cookie ($key, $value) {

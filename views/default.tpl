@@ -33,11 +33,18 @@
           <div class="right item">
             <div class="ui input"><input placeholder="Search..." type="text"></div>
           </div>
+          <div class="right item">
+            <?php if (Session::status() !== PHP_SESSION_ACTIVE): Session::start(); endif; ?>
+            <?php echo (Session::get('user') !== null) ? '<a href="/admin" class="item"> Access to dashboard </a><a href="/admin/logout" class="item"> Logout </a>' : '<a href="/admin/login" class="item"> Login </a>'; ?>
+          </div>
         </div>
       </div>
     </header>
     <div class="ui container">
       <?php echo $this->__data->body; ?>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+    <script src="/views/static/script.js"></script>
   </body>
 </html>

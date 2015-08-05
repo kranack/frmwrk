@@ -3,9 +3,13 @@
   $router = new Router;
 
   $router->get('/', 'HomeController');
+  /* Admin routes */
   $router->get('/admin', 'AdminController');
   $router->get('/admin/login', 'AdminController', 'login');
   $router->post('/admin/login', 'AdminController', 'login');
+  $router->get('/admin/logout', 'AdminController', 'logout');
+  $router->get('/admin/users', 'AdminController', 'users');
+  /* Others */
   $router->get('/json', 'HomeController', 'json');
   $router->get('/contact', 'ContactController');
   $router->get('/test', 'TestController');

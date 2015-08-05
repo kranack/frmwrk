@@ -43,13 +43,7 @@ class Security {
       return null;
     }
 
-    $key = self::generate_random_key();
-    $iv_size = mcrypt_get_iv_size($algo, $mode);
-    $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
-
-    $ciphertext = base64_encode($iv . mcrypt_encrypt($algo, $key, $data, $mode, $iv));
-
-    $r = array ("ciphertext" => $ciphertext, "key" => $key, "iv_size" => $iv_size);
+    $r = self::_encrypt($algo, $data, $mode);
     return $r;
   }
 
@@ -70,6 +64,16 @@ class Security {
     $r = mcrypt_decrypt($algo, $key, $ciphertext_dec, $mode, $iv_dec);
     return preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $r);
   }
+  /**
+   * Check pwd
+   *
+   *
+   */
+  public static function check ($pwd, $encpwd, $setup) {
+    $iv = substr(base64_decode($encpwd), 0, $setup[3]);
+    $r = self::_encrypt($setup[0], $pwd, $setup[1], $setup[2], $iv, $setup[3]);
+    return $r['ciphertext'] === $encpwd;
+  }
 
   /**
    * Get supported algos function
@@ -78,6 +82,34 @@ class Security {
   public static function get_supported_algos () {
     return mcrypt_list_algorithms();
   }
+
+  /**
+   * Real encrypt function
+   *
+   *
+   */
+  private static function _encrypt ($algo, $data, $mode, $key = null, $iv = null, $iv_size = null) {
+
+    if ($key !== null
+        && $iv !== null
+        && $iv_size !== null) {
+          $ciphertext = base64_encode($iv . mcrypt_encrypt($algo, $key, $data, $mode, $iv));
+
+
+          $r = array ("ciphertext" => $ciphertext, "key" => $key, "iv_size" => $iv_size);
+          return $r;
+    }
+
+    $key = self::generate_random_key();
+    $iv_size = mcrypt_get_iv_size($algo, $mode);
+    $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
+
+    $ciphertext = base64_encode($iv . mcrypt_encrypt($algo, $key, $data, $mode, $iv));
+
+    $r = array ("ciphertext" => $ciphertext, "key" => $key, "iv_size" => $iv_size);
+    return $r;
+  }
+
 
   /**
    * Generate a random key
