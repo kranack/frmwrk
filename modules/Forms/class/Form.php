@@ -45,6 +45,15 @@ class Form {
     return $this->render();
   }
 
+  public function check () {
+    $r = false;
+    foreach ($this->_objs as $obj) {
+      $r |= $obj->check();
+    }
+
+    return $r;
+  }
+
   private function render () {
     ob_start();
     require ($this->__template_path . 'form.tpl');

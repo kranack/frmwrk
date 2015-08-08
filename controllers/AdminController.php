@@ -8,10 +8,7 @@ class AdminController extends Controller {
    * and if he is an admin : redirect to login page if failed.
    */
   public function index () {
-    Session::start();
-    if (Session::get('user') === null) {
-      Tools::redirect('/admin/login');
-    }
+    Tools::admin_logged();
 
     $user = Session::get('user');
     if (Tools::is_admin($user)) {
@@ -31,7 +28,6 @@ class AdminController extends Controller {
    */
   public function login () {
     $post = Tools::data();
-    $success = '';
     $error = '';
     $form_return = array();
     if (!empty($post)) {
@@ -48,8 +44,7 @@ class AdminController extends Controller {
       }
       /* Set return */
       $form_return = array(
-        'error' => $error,
-        'success' => $success
+        'error' => $error
       );
     }
 
@@ -81,11 +76,9 @@ class AdminController extends Controller {
    * and redirect to root.
    */
   public function logout () {
-    Session::start();
+    Tools::admin_logged();
 
-    if (Session::get('user') !== null) {
-      Session::destroy();
-    }
+    Session::destroy();
 
     Tools::redirect('/');
   }
@@ -95,23 +88,82 @@ class AdminController extends Controller {
    *
    */
   public function users () {
-    Session::start();
-    if (Session::get('user') === null) {
-      Tools::redirect('/admin/login');
-    }
+    Tools::admin_logged();
 
     $db = Connections::get('user');
 
-    $r = $db->fetchAll($db->select('user'));
+    $r = $db->fetchAll($db->select('user', array('username')));
     $datas = array(
       'title' => 'Admin Dashboard - Users statistics',
       'users' => $r
     );
     $this->__view->set_content_type('html');
+    $this->__view->set_js (array('/views/static/js/script.js'));
     $this->__view->set_body('admin', 'bo/users.tpl');
     $this->__view->attach_data($datas);
     echo $this->__view->display();
   }
 
+  public function add_admin () {
+    Tools::admin_logged();
+
+    $post = Tools::data();
+    $error = '';
+    $success = '';
+    $form_return = array();
+    if (!empty($post)) {
+      if (isset($post['login'])) {
+        if (trim($post['pwd']) === '') {
+          $error = 'Invalid password';
+        } else if (Tools::add_admin(trim($post['login']), trim($post['pwd']))) {
+          $success = 'Admin added';
+        } else {
+          $error = 'Wrong password, BITCH !';
+        }
+      }
+      /* Set return */
+      $form_return = array(
+        'error'   => $error,
+        'success' => $success
+      );
+    }
+
+    /* Form creation */
+    $form = new Modules\Forms\Form('POST', '/admin/add_admin');
+    $login = new Modules\Forms\Input('login');
+    $login_label = new Modules\Forms\Label('Login', 'login');
+    $pwd = new Modules\Forms\Input('pwd', 'password');
+    $pwd_label = new Modules\Forms\Label('Password', 'pwd');
+    $button = new Modules\Forms\Button('button', 'Add admin', 'submit');
+    $form->add_obj($login->attach($login_label));
+    $form->add_obj($pwd->attach($pwd_label))->add_obj($button);
+
+    /* View setup */
+    $datas = array(
+      'title' => 'Admin Dashboard - Add an admin',
+      'form' => $form->display()
+    );
+    $this->__view->set_content_type("html");
+    $this->__view->set_body('admin', 'index.tpl');
+    $this->__view->attach_data($datas);
+    echo $this->__view->display();
+  }
+
+  public function modules () {
+    $db = Connections::get('core');
+    $modules = $db->fetchAll($db->select('core_modules'));
+
+    $datas = array(
+      'title' => 'Admin Dashboard - Modules',
+      'modules_db' => $modules,
+      'modules_list' => Core::list_modules()
+    );
+
+    $this->__view->set_content_type('html');
+    $this->__view->set_js (array('/views/static/js/script.js'));
+    $this->__view->set_body('admin', 'bo/modules.tpl');
+    $this->__view->attach_data($datas);
+    echo $this->__view->display();
+  }
 
 }

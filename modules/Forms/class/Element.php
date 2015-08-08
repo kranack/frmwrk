@@ -23,6 +23,8 @@ abstract class Element {
 
   abstract public function display ();
 
+  abstract public function check ();
+
   abstract protected function render ();
 
 }

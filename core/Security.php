@@ -71,7 +71,11 @@ class Security {
    */
   public static function check ($pwd, $encpwd, $setup) {
     $iv = substr(base64_decode($encpwd), 0, $setup[3]);
+    var_dump($setup);
+    var_dump($pwd);
+    var_dump($encpwd);
     $r = self::_encrypt($setup[0], $pwd, $setup[1], $setup[2], $iv, $setup[3]);
+    var_dump($r);
     return $r['ciphertext'] === $encpwd;
   }
 
@@ -94,7 +98,6 @@ class Security {
         && $iv !== null
         && $iv_size !== null) {
           $ciphertext = base64_encode($iv . mcrypt_encrypt($algo, $key, $data, $mode, $iv));
-
 
           $r = array ("ciphertext" => $ciphertext, "key" => $key, "iv_size" => $iv_size);
           return $r;

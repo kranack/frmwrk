@@ -14,6 +14,11 @@ class Core {
   private static $__loaded = array();
   private static $__priority = array();
 
+  /**
+   * Require all function
+   * @param bool load_hooks (default false) load hooks if true
+   * Require all core files and enabled modules
+   */
   public static function require_all ($load_hooks = false) {
     if ($load_hooks) {
       self::load_hooks();
@@ -26,6 +31,12 @@ class Core {
     }
   }
 
+  /**
+   * Require file function
+   * @param string dir file's directory
+   * @param string filename
+   * Require a file in a directory
+   */
   public static function require_file ($dir, $file) {
     if ($file === null) {
       return null;
@@ -41,12 +52,22 @@ class Core {
     }
   }
 
+  /**
+   * Enable function
+   * @param string smthg class to load
+   * Add class to optionnal array
+   */
   public static function enable ($smthg) {
     if (!in_array($smthg, self::$_opt)) {
       self::$_opt [] = strtolower($smthg);
     }
   }
 
+  /**
+   * Disable function
+   * @param string smthg class to disable
+   * Remove class from optionnal array
+   */
   public static function disable ($smthg) {
     $k = array_search($smthg, self::$_opt);
     if ($k !== false) {
@@ -54,8 +75,29 @@ class Core {
     }
   }
 
+  /**
+   * Is Loaded function
+   * @param string classname class to check
+   * Check if the class is loaded
+   */
   public static function is_loaded ($classname) {
     return in_array($classname, self::$__loaded);
+  }
+
+  public static function list_modules () {
+    $files = array();
+
+    $dir = "modules";
+    $dh  = opendir($dir);
+    while (false !== ($filename = readdir($dh))) {
+      if(!in_array($filename,array(".",".."))) {
+        if (is_dir($dir . DIRECTORY_SEPARATOR . $filename)) {
+          $files[] = $filename;
+        }
+      }
+    }
+
+    return $files;
   }
 
   private static function load_hooks ($load_before_core = true) {
@@ -160,10 +202,10 @@ class Core {
     usort($files, function ($a, $b) {
       if (strpos(strtolower($a), "element") !== false) {
         return 0;
-      } elseif (substr($a, -8) === "form.php") {
-        return 1;
+      } elseif (strpos(strtolower($a), "module.php") !== false) {
+        return -1;
       } else {
-        return 2;
+        return 1;
       }
     });
 
@@ -174,7 +216,7 @@ class Core {
 
       /* Get parent class and require class */
       self::__get_parent_classes($classname);
-      if (!(substr($module, -strlen(".tpl")) === ".tpl")) {
+      if (!(substr($module, -4) === ".tpl")) {
         require_once ($module);
       }
 

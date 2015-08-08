@@ -2,7 +2,6 @@
 
 class Controller {
 
-  protected $__resp = null;
   protected $__view = null;
   protected $__model = null;
 

@@ -7,6 +7,7 @@
 class FormModule implements \Module {
 
   private static $__enabled = false;
+  private static $__form = null;
 
   public static function info () {
     return "Form module created by Kranack";
@@ -30,12 +31,25 @@ class FormModule implements \Module {
 
   public static function enable () {
     self::$__enabled = true;
-    var_dump ('Form Module enabled');
+    \Log::record(__FILE__, "Form Module enabled");
   }
 
   public static function disable () {
     self::$__enabled = false;
-    var_dump ('Form Module disabled');
+    \Log::record(__FILE__, "Form Module disabled");
+  }
+
+  public static function validation ($form) {
+    if (get_class($form) !== "Form") {
+      return null;
+    }
+
+    self::$__form = $form;
+    return self::is_valid();
+  }
+
+  private static function is_valid () {
+    return self::$__form->check();
   }
 
 }

@@ -9,10 +9,12 @@
   $router->post('/admin/login', 'AdminController', 'login');
   $router->get('/admin/logout', 'AdminController', 'logout');
   $router->get('/admin/users', 'AdminController', 'users');
+  $router->get('/admin/add_admin', 'AdminController', 'add_admin');
+  $router->post('/admin/add_admin', 'AdminController', 'add_admin');
+  $router->get('/admin/modules', 'AdminController', 'modules');
   /* Others */
   $router->get('/json', 'HomeController', 'json');
   $router->get('/contact', 'ContactController');
-  $router->get('/test', 'TestController');
   $router->get('/infos', 'InfosController');
   $router->get('/user', 'UserController');
   $router->get('/user/:name', 'UserController');

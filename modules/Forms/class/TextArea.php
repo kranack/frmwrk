@@ -32,6 +32,10 @@ class TextArea extends Element {
     return $this->render();
   }
 
+  public function check () {
+    return false;
+  }
+
   protected function render () {
     ob_start();
     require ($this->__template_path . 'textarea.tpl');

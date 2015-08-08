@@ -87,6 +87,12 @@ class View {
     }
   }
 
+  public function set_js ($js) {
+    foreach ($js as $j) {
+      $this->__data ['js'] [] = '<script type="text/javascript" src="' . $j . '"></script>';
+    }
+  }
+
   public function exec() {
     $this->__view_content = preg_replace('~\{(\w+)\}~', '<?php echo \'$1\'; ?>', $this->__view_content);
   }

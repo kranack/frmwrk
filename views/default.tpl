@@ -45,6 +45,10 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
-    <script src="/views/static/script.js"></script>
+    <?php if (isset($this->__data->js)):
+      foreach ($this->__data->js as $js): ?>
+      <?php echo $js; ?>
+    <?php endforeach;
+    endif; ?>
   </body>
 </html>
