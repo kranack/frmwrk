@@ -1,2 +1,8 @@
-There is <?php echo count($this->__data['users']); ?> users
-<canvas id="usersChart" width="200" height="200"></canvas>
+There is <?= count($this->__data['users']); ?> users
+<table>
+<?php foreach ($this->__data['users'] as $user): ?>
+  <tr>
+    <td> <?= $user->username; ?> </td>
+  </tr>
+<?php endforeach; ?>
+</table>

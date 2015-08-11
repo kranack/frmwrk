@@ -7,9 +7,22 @@
  *
  */
 
-function __autoload ($classname) {
-  $seek_dir = '';
-  if (endsWith(strtolower($classname), "controller")) {
+function autoload ($classname) {
+
+  if (file_exists(CORE_DIRECTORY . DIRECTORY_SEPARATOR . $classname . '.php')) {
+    require_once (CORE_DIRECTORY . DIRECTORY_SEPARATOR . $classname . '.php');
+  } elseif (file_exists(CORE_DIRECTORY . DIRECTORY_SEPARATOR . 'Exceptions' . $classname . '.php')) {
+    require_once (CORE_DIRECTORY . DIRECTORY_SEPARATOR . 'Exceptions' . $classname . '.php');
+  } elseif (file_exists(MODELS_DIRECTORY . DIRECTORY_SEPARATOR . $classname . '.php')) {
+    require_once (MODELS_DIRECTORY . DIRECTORY_SEPARATOR . $classname . '.php');
+  } elseif (file_exists(HOOKS_DIRECTORY . DIRECTORY_SEPARATOR . $classname . '.php')) {
+    require_once (HOOKS_DIRECTORY . DIRECTORY_SEPARATOR . $classname . '.php');
+  } elseif (file_exists(MODULES_DIRECTORY . DIRECTORY_SEPARATOR . $classname . '.php')) {
+    require_once (MODULES_DIRECTORY . DIRECTORY_SEPARATOR . $classname . '.php');
+  } elseif (file_exists(CONTROLLERS_DIRECTORY . DIRECTORY_SEPARATOR . $classname . '.php')) {
+    require_once (CONTROLLERS_DIRECTORY . DIRECTORY_SEPARATOR . $classname . '.php');
+  }
+  /*if (endsWith(strtolower($classname), "controller")) {
     $seek_dir = 'controllers';
   } else if (endsWith(strtolower($classname), "view")) {
     $seek_dir = 'views';
@@ -25,8 +38,10 @@ function __autoload ($classname) {
   if ($interfaces = class_implements($classname))
   foreach ($interfaces as $interface) {
     require_once(ROOT_DIRECTORY . $seek_dir . DIRECTORY_SEPARATOR . $interface . '.php');
-  }
+  }*/
 }
+
+spl_autoload_register('autoload');
 
 function endsWith($haystack, $needle)
 {

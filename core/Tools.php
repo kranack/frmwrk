@@ -16,7 +16,7 @@ class Tools {
 
   public static function is_admin ($login, $pwd = null) {
     $db = Connections::get('core');
-    $r = $db->fetch($db->select('core_admin', array('a', 'm'), "login = '$login'"));
+    $r = $db->fetch($db->select('core_admin', array('a', 'm'), "login = '$login'")->statement);
 
     if ($pwd === null) {
       return count($r) === 1;
@@ -26,8 +26,8 @@ class Tools {
       return 0;
     }
 
-    $a = $db->fetch($db->select('a', array(), "aid = '$r->a'"));
-    $m = $db->fetch($db->select('m', array(), "mid = '$r->m'"));
+    $a = $db->fetch($db->select('a', array(), "aid = '$r->a'")->statement);
+    $m = $db->fetch($db->select('m', array(), "mid = '$r->m'")->statement);
     $setup = array('blowfish', 'cbc', base64_decode($m->n), $m->s);
     return Security::check($pwd, $a->b, $setup);
   }

@@ -7,9 +7,8 @@ class UserController extends Controller {
     //var_dump(func_get_args());
     print_r($args);
     $user = new UserModel();
-    $user->insert(array(
-      'uid'      => '',
-      'username' => 'kranack',
+    $azer = $user->insert(array(
+      'username' => 'chipolata',
       'passwd'   => 'shit happens',
       'role'     => 0
     ));

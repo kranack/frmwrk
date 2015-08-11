@@ -15,6 +15,8 @@
   /* Global configurations */
   define ('CORE_DIRECTORY', 'core');
 
+  define ('CONTROLLERS_DIRECTORY', 'controllers');
+
   define ('MODELS_DIRECTORY', 'models');
 
   define ('HOOKS_DIRECTORY', 'hooks');

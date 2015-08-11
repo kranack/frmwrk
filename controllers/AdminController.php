@@ -92,7 +92,7 @@ class AdminController extends Controller {
 
     $db = Connections::get('user');
 
-    $r = $db->fetchAll($db->select('user', array('username')));
+    $r = $db->fetchAll($db->select('user', array('username'))->statement);
     $datas = array(
       'title' => 'Admin Dashboard - Users statistics',
       'users' => $r
@@ -102,6 +102,8 @@ class AdminController extends Controller {
     $this->__view->set_body('admin', 'bo/users.tpl');
     $this->__view->attach_data($datas);
     echo $this->__view->display();
+
+    //var_dump(debug_backtrace());
   }
 
   public function add_admin () {
@@ -150,8 +152,10 @@ class AdminController extends Controller {
   }
 
   public function modules () {
+    Tools::admin_logged();
+
     $db = Connections::get('core');
-    $modules = $db->fetchAll($db->select('core_modules'));
+    $modules = $db->fetchAll($db->select('core_modules')->statement);
 
     $datas = array(
       'title' => 'Admin Dashboard - Modules',
