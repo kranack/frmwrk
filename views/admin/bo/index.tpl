@@ -1,1 +1,1 @@
-Welcome to your dashbord, <?php echo $this->__data['user']; ?> !
+Welcome to your dashboard, <?php echo $this->__data['user']; ?> !
