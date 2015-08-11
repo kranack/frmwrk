@@ -47,7 +47,6 @@ class Database {
 
   public function execute($sql, $params = null) {
     $pdo = $this->pdo();
-    var_dump($sql);
     if ($params !== null) {
       $q = $pdo->prepare($sql)->execute($params);
     }

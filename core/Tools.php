@@ -41,9 +41,7 @@ class Tools {
 
   public static function add_admin ($login, $pwd) {
     /* Password encryption */
-    var_dump($pwd);
     $p = Security::encrypt('blowfish', $pwd);
-    var_dump($p);
     /* Add to db new admin */
     $db = Connections::get('core');
     $db->insert('a', array('b' => $p['ciphertext']));

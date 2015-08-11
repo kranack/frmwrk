@@ -14,7 +14,7 @@ class AdminController extends Controller {
     if (Tools::is_admin($user)) {
       // ADMIN VIEW
       $datas = array('title' => 'Admin Dashbord', 'user' => $user);
-      $this->__view->set_content_type("html");
+      $this->__view->set_content_type("html")->set_template('admin/bo/default.tpl');
       $this->__view->set_body('admin', 'bo/index.tpl');
       $this->__view->attach_data($datas);
       echo $this->__view->display();
@@ -102,8 +102,6 @@ class AdminController extends Controller {
     $this->__view->set_body('admin', 'bo/users.tpl');
     $this->__view->attach_data($datas);
     echo $this->__view->display();
-
-    //var_dump(debug_backtrace());
   }
 
   public function add_admin () {
