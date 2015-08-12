@@ -11,4 +11,5 @@
   $time = $time[1] + $time[0];
   $finish = $time;
   $total_time = round(($finish - $start), 4);
-  var_dump('Page generated in '.$total_time.' seconds.');
+
+  (!isset($_POST)) ? var_dump('Page generated in '.$total_time.' seconds.') : '';

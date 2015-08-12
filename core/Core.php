@@ -13,6 +13,9 @@ class Core {
 
   private static $__loaded = array();
   private static $__priority = array();
+  private static $__excpts = array('tpl', 'txt', 'json');
+
+  private static $___modules = array();
 
   /**
    * Require all function
@@ -84,7 +87,11 @@ class Core {
     return in_array($classname, self::$__loaded);
   }
 
-  public static function list_modules () {
+  public static function list_modules ($enabled = false) {
+    if ($enabled) {
+      return self::$___modules;
+    }
+
     $files = array();
 
     $dir = "modules";
@@ -136,11 +143,6 @@ class Core {
       }
     }
     $classname = preg_replace('/\\.[^.\\s]{3,4}$/', '', strrchr($filename, "\\"));
-    if ($interfaces = class_implements($classname)) {
-      foreach ($interfaces as $interface) {
-        require_once($dir . DIRECTORY_SEPARATOR . $interface . '.php');
-      }
-    }
   }
 
   private static function _require_directory ($dir) {
@@ -216,7 +218,7 @@ class Core {
 
       /* Get parent class and require class */
       self::__get_parent_classes($classname);
-      if (!(substr($module, -4) === ".tpl")) {
+      if (!in_array(pathinfo($module, PATHINFO_EXTENSION), self::$__excpts)) {
         require_once ($module);
       }
 
@@ -225,6 +227,7 @@ class Core {
         $m = new $namespace();
         $func = "system_init";
         $m->$func();
+        self::$___modules [$classname] = $m;
       }
       self::$__loaded [] = $namespace;
     }

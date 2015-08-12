@@ -23,7 +23,11 @@ class View {
 
   public function __construct () {
     $this->set_template("default.tpl");
-    $this->__data = array("charset" => "utf-8", "css" => array());
+    $this->__data = array(
+      "charset"   =>  "utf-8",
+      "css"       =>  array(),
+      "title"     =>  DEFAULT_VIEW_TITLE
+    );
     $this->__view_root_path = ROOT_PATH .  'views' . PATH_SEPARATORS;
     $this->__cache_root_path = 'cache' . PATH_SEPARATORS;
 

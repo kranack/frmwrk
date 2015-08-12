@@ -35,3 +35,6 @@
 
 
   define ('DEFAULT_CONF_FILE', ROOT_DIRECTORY . 'config' . DIRECTORY_SEPARATOR . 'system.json');
+
+  /* View configuration */
+  define ('DEFAULT_VIEW_TITLE', 'Oulalala y\'a pas de titre');

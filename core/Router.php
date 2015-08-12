@@ -21,6 +21,19 @@ class Router {
     $this->add('POST', $path, $controller, $method);
   }
 
+  public function delete ($path, $controller, $method = 'index') {
+    $this->add('DELETE', $path, $controller, $method);
+  }
+
+  public function put ($path, $controller, $method = 'index') {
+    $this->add('PUT', $path, $controller, $method);
+  }
+
+  public function datas ($path, $controller, $method = 'index') {
+    $this->add('GET', $path, $controller, $method);
+    $this->add('POST', $path, $controller, $method);
+  }
+
   public function add ($type, $path, $controller, $method = 'index') {
     try {
       if (!in_array($type, array_keys($this->_routes))) {
@@ -76,7 +89,7 @@ class Router {
     }
 
     $route = trim($route);
-    $route = strtolower($route);
+    //$route = strtolower($route);
 
     $route = rtrim($route, "/");
     do {

@@ -49,12 +49,12 @@ class AdminController extends Controller {
     }
 
     /* Form creation */
-    $form = new Modules\Forms\Form('POST', '/admin/login');
-    $login = new Modules\Forms\Input('login');
-    $login_label = new Modules\Forms\Label('Login', 'login');
-    $pwd = new Modules\Forms\Input('adminpwd', 'password');
-    $pwd_label = new Modules\Forms\Label('Password', 'adminpwd');
-    $button = new Modules\Forms\Button('button', 'Connexion', 'submit');
+    $form = new Modules\Form\Form('POST', '/admin/login');
+    $login = new Modules\Form\Input('login');
+    $login_label = new Modules\Form\Label('Login', 'login');
+    $pwd = new Modules\Form\Input('adminpwd', 'password');
+    $pwd_label = new Modules\Form\Label('Password', 'adminpwd');
+    $button = new Modules\Form\Button('button', 'Connexion', 'submit');
     $form->add_obj($login->attach($login_label));
     $form->add_obj($pwd->attach($pwd_label))->add_obj($button);
 
@@ -65,7 +65,7 @@ class AdminController extends Controller {
       'form_return' => $form_return
     );
     $this->__view->set_content_type("html");
-    $this->__view->set_body('admin', 'index.tpl');
+    $this->__view->set_body('admin', 'index.tpl')->set_template('admin/bo/default.tpl');
     $this->__view->attach_data($datas);
     echo $this->__view->display();
   }
@@ -99,7 +99,7 @@ class AdminController extends Controller {
     );
     $this->__view->set_content_type('html');
     $this->__view->set_js (array('/views/static/js/script.js'));
-    $this->__view->set_body('admin', 'bo/users.tpl');
+    $this->__view->set_body('admin', 'bo/users.tpl')->set_template('admin/bo/default.tpl');
     $this->__view->attach_data($datas);
     echo $this->__view->display();
   }
@@ -150,20 +150,50 @@ class AdminController extends Controller {
   }
 
   public function modules () {
-    Tools::admin_logged();
+    $post = Tools::data();
 
-    $db = Connections::get('core');
-    $modules = $db->fetchAll($db->select('core_modules')->statement);
+    if (!empty($post)) {
+      if (!in_array($post['module'], array_keys(Core::list_modules(true)))) {
+        return null;
+      }
+
+      $m = Core::list_modules(true)[$post['module']];
+      if ($post['status'] === 'true') {
+        $r = $m->enable();
+      } else {
+        $r = $m->disable();
+      }
+      return print_r(json_encode(array('status' => $m->is_enabled())));
+    }
+
+    Tools::admin_logged();
 
     $datas = array(
       'title' => 'Admin Dashboard - Modules',
-      'modules_db' => $modules,
-      'modules_list' => Core::list_modules()
+      'modules_list' => Core::list_modules(true)
     );
 
     $this->__view->set_content_type('html');
     $this->__view->set_js (array('/views/static/js/script.js'));
-    $this->__view->set_body('admin', 'bo/modules.tpl');
+    $this->__view->set_body('admin', 'bo/modules.tpl')->set_template('admin/bo/default.tpl');
+    $this->__view->attach_data($datas);
+    echo $this->__view->display();
+  }
+
+  public function module_infos ($name) {
+    $n = $name[0];
+    if (!in_array($n, array_keys(Core::list_modules(true)))) {
+      throw new HTTP404Exception('/admin/modules/'. $n, 'module_infos');
+    }
+    $m = Core::list_modules(true)[$n];
+
+    $datas = array(
+      'infos'   => $m->infos(),
+      'status'  => $m->status()
+    );
+
+    $this->__view->set_content_type('html');
+    $this->__view->set_body('admin', 'bo/module_infos.tpl')->set_template('admin/bo/default.tpl');
     $this->__view->attach_data($datas);
     echo $this->__view->display();
   }

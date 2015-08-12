@@ -1,6 +1,6 @@
 <?php
 
-  namespace Modules\Forms;
+  namespace Modules\Form;
 
 class Input extends Element {
 
@@ -18,7 +18,7 @@ class Input extends Element {
   }
 
   public function attach ($label) {
-    if (get_class($label) !== "Modules\Forms\Label") {
+    if (get_class($label) !== "Modules\Form\Label") {
       return null;
     }
     $this->_label = $label;

@@ -1,6 +1,6 @@
 <?php
 
-  namespace Modules\Forms;
+  namespace Modules\Form;
 
 abstract class Element {
 
@@ -15,7 +15,7 @@ abstract class Element {
     $this->_id = $id;
     $this->_class = $class;
     $this->_placeholder = null;
-    $this->__template_path = '/modules/Forms/_templates/';
+    $this->__template_path = '/modules/Form/_templates/';
     return $this;
   }
 

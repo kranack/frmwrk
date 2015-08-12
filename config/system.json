@@ -5,7 +5,7 @@
         "TestHook" : "system_init"
       },
       "post_hooks" : {
-        "TestHook" : "info"
+        "TestHook" : "infos"
       }
     }
   }

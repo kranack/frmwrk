@@ -1,6 +1,6 @@
 <?php
 
-  namespace Modules\Forms;
+  namespace Modules\Form;
 
 /* TODO: FOR LIE A L'ID PUTAIN DE MERDE T'ES CON OU QUOI?!!! */
 class Form {
@@ -11,7 +11,7 @@ class Form {
   public function __construct ($type, $action) {
     $this->_type = $type;
     $this->_action = $action;
-    $this->__template_path = '/modules/Forms/_templates/';
+    $this->__template_path = '/modules/Form/_templates/';
 
     return $this;
   }

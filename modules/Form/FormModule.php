@@ -1,42 +1,23 @@
 <?php
 
-  namespace Modules\Forms;
+  namespace Modules\Form;
 
 
 /* TODO: Check why FormModule is loaded before Form class */
-class FormModule implements \Module {
-
-  private static $__enabled = false;
+class FormModule extends \Module {
   private static $__form = null;
 
-  public static function info () {
-    return "Form module created by Kranack";
-  }
-
   public static function system_init () {
+    parent::system_init();
     if (!self::is_enabled()) {
       return null;
     }
+    \Log::record(__FILE__, "Form module is enable");
     if (!\Core::is_loaded("Modules\Forms\Form")) {
       //\Log::record(__FILE__, "Form module not loaded");
     }
-    self::$__enabled = true;
     $path = __DIR__ . DIRECTORY_SEPARATOR;
     \Core::require_file($path . 'class', 'Element.php');
-  }
-
-  public static function is_enabled () {
-    return self::$__enabled;
-  }
-
-  public static function enable () {
-    self::$__enabled = true;
-    \Log::record(__FILE__, "Form Module enabled");
-  }
-
-  public static function disable () {
-    self::$__enabled = false;
-    \Log::record(__FILE__, "Form Module disabled");
   }
 
   public static function validation ($form) {

@@ -11,6 +11,7 @@ class Config {
     } else {
       self::_load_conf($conf_file);
     }
+    //var_dump(self::$__conf);
   }
 
   public static function load_modules ($bool = true) {

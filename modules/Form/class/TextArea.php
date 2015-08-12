@@ -1,6 +1,6 @@
 <?php
 
-  namespace Modules\Forms;
+  namespace Modules\Form;
 
 class TextArea extends Element {
 
