@@ -11,21 +11,30 @@ class Loader {
    *
    **************************************/
   public static function enable ($module) {
-    $conf_path = MODULES_DIRECTORY . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR . 'config.json';
-    return self::_set(self::_parse_conf($conf_path), array('status' => 'enable'));
+    return self::_set(self::_parse_conf(self::_get_conf_path($module)), array('status' => 'enable'));
   }
 
   public static function disable ($module) {
-    $conf_path = MODULES_DIRECTORY . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR . 'config.json';
-    return self::_set(self::_parse_conf($conf_path), array('status' => 'disable'));
+    return self::_set(self::_parse_conf(self::_get_conf_path($module)), array('status' => 'disable'));
+  }
+
+  public static function edit ($module, $value) {
+    return self::_set(self::_parse_conf(self::_get_conf_path($module)), $value);
+  }
+
+  public static function delete ($module, $key) {
+    return self::_unset(self::_parse_conf(self::_get_conf_path($module)), $key);
   }
 
   public static function get_config ($module, $complete = false) {
-    $conf_path = MODULES_DIRECTORY . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR . 'config.json';
-    return self::_parse_conf($conf_path, $complete);
+    return self::_parse_conf(self::_get_conf_path($module), $complete);
   }
 
-  private static function _parse_conf ($conf, $complete) {
+  private static function _get_conf_path ($module) {
+    return MODULES_DIRECTORY . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR . 'config.json';
+  }
+
+  private static function _parse_conf ($conf, $complete = false) {
     self::$_current_file = $conf;
     $config = file_get_contents($conf);
     $c = json_decode($config, true)[0];
@@ -51,6 +60,25 @@ class Loader {
     return self::_save(self::$_current_file, $conf);
   }
 
+  private static function _unset ($conf, $key = null) {
+    if ($key === null) {
+      return null;
+    }
+
+    $keys = explode(";", $key);
+
+    if ($keys[0] === "opts") {
+      foreach ($conf['opts'] as $opt) {
+        if (in_array($keys[1], array_keys($opt))) {
+          $k = array_search($opt, $conf['opts']);
+          unset($conf['opts'][$k]);
+          $conf['opts'] = array_values($conf['opts']);
+        }
+      }
+    }
+    return self::_save(self::$_current_file, $conf);
+  }
+
   private static function _save ($conf_file, $conf) {
     if (!is_array($conf)) {
       return null;
@@ -59,7 +87,7 @@ class Loader {
     $old = self::_parse_all($conf_file);
     $n = $old;
     $n['config'] = array_merge($old['config'],$conf);
-    $r = file_put_contents($conf_file, "[". json_encode($n) ."]");
+    $r = file_put_contents($conf_file, "[". json_encode($n, JSON_PRETTY_PRINT) ."]");
 
     self::$_current_file = null;
 

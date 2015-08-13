@@ -188,14 +188,35 @@ class AdminController extends Controller {
     $m = Core::list_modules(true)[$n];
 
     $datas = array(
+      'name'    => $n,
       'infos'   => $m->infos(),
-      'status'  => $m->status()
+      'status'  => $m->status(),
+      'config'  => $m->config()
     );
 
     $this->__view->set_content_type('html');
     $this->__view->set_body('admin', 'bo/module_infos.tpl')->set_template('admin/bo/default.tpl');
     $this->__view->attach_data($datas);
     echo $this->__view->display();
+  }
+
+  public function module_edit () {
+
+    $post = Tools::data();
+
+    if (!empty($post)) {
+      if (!in_array($post['module'], array_keys(Core::list_modules(true)))) {
+        return null;
+      }
+
+      $m = Core::list_modules(true)[$post['module']];
+
+
+      if ($post['action'] === 'delete') {
+        print_r(json_encode(array('status' => $m->delete("opts;".$post['option']))));
+      }
+    }
+
   }
 
 }

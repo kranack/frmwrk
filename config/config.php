@@ -1,7 +1,7 @@
 <?php
 /**
  * @file config.php
- * @author Damien Calesse
+ * @authors Kranack
  * @date 18/07/2015
  * @description Config file for framework
  */
@@ -11,6 +11,11 @@
  } else {
    define('PATH_SEPARATORS', PATH_SEPARATOR);
  }
+
+  /* Default configurations */
+  define ('DEFAULT_TIMEZONE', 'Europe/Paris');
+
+  define ('DEFAULT_LOG_FILE', 'log.txt');
 
   /* Global configurations */
   define ('CORE_DIRECTORY', 'core');
@@ -24,8 +29,6 @@
   define ('MODULES_DIRECTORY', 'modules');
 
   define ('LOG_DIRECTORY', 'logs');
-
-  define ('DEFAULT_LOG_FILE', 'log.txt');
 
   define ('ROOT_DIRECTORY', $_SERVER['DOCUMENT_ROOT']);
 

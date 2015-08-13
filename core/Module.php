@@ -16,6 +16,18 @@ class Module implements Module_Interface {
     return self::$_config[self::_get_classname()]['infos'];
   }
 
+  public static function config () {
+    return self::$_config[self::_get_classname()]['config'];
+  }
+
+  public static function edit ($value = array()) {
+    return Loader::edit(self::_get_classname(), $value);
+  }
+
+  public static function delete ($key) {
+    return Loader::delete(self::_get_classname(), $key);
+  }
+
   public static function system_init () {
     Log::record(__FILE__, 'system_init called');
     self::$_config[self::_get_classname()] = Loader::get_config(self::_get_classname(), true);

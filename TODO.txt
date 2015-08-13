@@ -2,3 +2,4 @@ Create Themes
 Create regex for routes
 Create better docs
 Improve form module
+Avoir la classe

@@ -54,7 +54,7 @@ class Log {
   }
 
   private static function _write ($path, $file, $log) {
-    date_default_timezone_set ("Europe/Paris");
+    date_default_timezone_set (DEFAULT_TIMEZONE);
     $datetime = date ('d-m-Y H:i:s');
     $line = "[$datetime] : $log ($file)\r\n";
     file_put_contents ($path, $line, FILE_APPEND);

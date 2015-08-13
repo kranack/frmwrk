@@ -1,1 +1,21 @@
-[{"infos":{"name":"Test Module","description":"This is a test module bitch!!!!","author":"Kranack"},"config":{"status":"enable","opts":[]}}]
+[{
+    "infos": {
+        "name": "Test Module",
+        "description": "This is a test module bitch!!!!",
+        "author": "Kranack"
+    },
+    "config": {
+        "status": "disable",
+        "opts": [
+            {
+                "penis": true
+            },
+            {
+                "chaton": false
+            },
+            {
+                "rigoloman": "El CAPITANO es en Brazil"
+            }
+        ]
+    }
+}]

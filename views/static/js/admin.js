@@ -24,4 +24,15 @@ $(document).ready(function() {
         }
     });
   }
+
+  if ($("#opts_list").length > 0) {
+    $(".delete").on('click', function() {
+      var id = $(this).attr('id').split('_');
+      var name = id[0];
+      var opt = id[1];
+      $.post('/admin/modules/edit', {action:'delete',module:name,option:opt}, function(data) {
+        console.log(data);
+      }, "json");
+    });
+  }
 });

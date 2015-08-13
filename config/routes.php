@@ -12,6 +12,7 @@
   $router->datas('/admin/modules', 'AdminController', 'modules');
 
   $router->get('/admin/modules/:module', 'AdminController', 'module_infos');
+  $router->post('/admin/modules/edit', 'AdminController', 'module_edit');
   /* Others */
   $router->get('/json', 'HomeController', 'json');
   $router->get('/contact', 'ContactController');
