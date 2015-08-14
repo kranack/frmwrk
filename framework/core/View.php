@@ -28,7 +28,7 @@ class View {
       "css"       =>  array(),
       "title"     =>  DEFAULT_VIEW_TITLE
     );
-    $this->__view_root_path = ROOT_PATH .  'views' . PATH_SEPARATORS;
+    $this->__view_root_path = APP_DIRECTORY . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR;
     $this->__cache_root_path = 'cache' . PATH_SEPARATORS;
 
     $this->__enable_cache = false;
@@ -67,10 +67,10 @@ class View {
   public function attach_data ($data) {
     /* Get filenames */
     if ($this->_template !== null) {
-      $__template_filename = ROOT_DIRECTORY . 'views' . DIRECTORY_SEPARATOR . $this->_template;
+      $__template_filename = $this->__view_root_path . $this->_template;
     }
     if ($this->_body !== null) {
-      $__body_filename = ROOT_DIRECTORY . 'views' . DIRECTORY_SEPARATOR . $this->_body;
+      $__body_filename = $this->__view_root_path . $this->_body;
     }
 
     /* Add content to data */
@@ -87,13 +87,13 @@ class View {
 
   public function set_css ($css) {
     foreach ($css as $c) {
-      $this->__data ['css'] [] = '<link rel="stylesheet" type="text/css" href="'. $this->__view_path . $c .'">';
+      $this->__data ['css'] [] = '<link rel="stylesheet" type="text/css" href="/css/'. $c .'">';
     }
   }
 
   public function set_js ($js) {
     foreach ($js as $j) {
-      $this->__data ['js'] [] = '<script type="text/javascript" src="' . $j . '"></script>';
+      $this->__data ['js'] [] = '<script type="text/javascript" src="/js/' . $j . '"></script>';
     }
   }
 
@@ -132,7 +132,7 @@ class View {
     } else {
       ob_start();
       //require_once ($this->__cache_root_path . $this->_cache_file);
-      require_once (ROOT_DIRECTORY . 'views' . DIRECTORY_SEPARATOR . $this->_template);
+      require_once ($this->__view_root_path . $this->_template);
       return ob_get_clean();
     }
   }

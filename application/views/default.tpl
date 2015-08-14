@@ -3,7 +3,7 @@
   <head>
     <title><?php echo $this->__data->title; ?></title>
     <meta charset="<?php echo $this->__data->charset; ?>">
-    <link rel="stylesheet" href="/vendor/semantic-ui/semantic.min.css">
+    <link rel="stylesheet" href="/css/semantic-ui/semantic.min.css">
     <?php foreach ($this->__data->css as $css): ?>
       <?php echo $css; ?>
     <?php endforeach; ?>

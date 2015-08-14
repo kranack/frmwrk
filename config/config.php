@@ -18,15 +18,19 @@
   define ('DEFAULT_LOG_FILE', 'log.txt');
 
   /* Global configurations */
-  define ('CORE_DIRECTORY', 'core');
+  define ('APP_DIRECTORY', 'application');
 
-  define ('CONTROLLERS_DIRECTORY', 'controllers');
+  define ('FRAMEWORK_DIRECTORY', 'framework');
 
-  define ('MODELS_DIRECTORY', 'models');
+  define ('CORE_DIRECTORY', FRAMEWORK_DIRECTORY . DIRECTORY_SEPARATOR . 'core');
 
-  define ('HOOKS_DIRECTORY', 'hooks');
+  define ('CONTROLLERS_DIRECTORY', APP_DIRECTORY . DIRECTORY_SEPARATOR . 'controllers');
 
-  define ('MODULES_DIRECTORY', 'modules');
+  define ('MODELS_DIRECTORY', APP_DIRECTORY . DIRECTORY_SEPARATOR . 'models');
+
+  define ('HOOKS_DIRECTORY', APP_DIRECTORY . DIRECTORY_SEPARATOR . 'hooks');
+
+  define ('MODULES_DIRECTORY', FRAMEWORK_DIRECTORY . DIRECTORY_SEPARATOR . 'modules');
 
   define ('LOG_DIRECTORY', 'logs');
 

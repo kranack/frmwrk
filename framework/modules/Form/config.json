@@ -1,0 +1,11 @@
+[{
+    "infos": {
+        "name": "Form Module",
+        "description": "This is a form module bitch!!!!",
+        "author": "Kranack"
+    },
+    "config": {
+        "status": "enable",
+        "opts": []
+    }
+}]

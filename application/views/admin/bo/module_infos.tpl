@@ -11,7 +11,7 @@
   <p> <a href="/admin/modules"> Return to modules list </a> </p>
 
   <div id="opts_list">
-    <table class="ui celled table">
+    <table class="ui celled table" data-module="<?= $this->__data['name']; ?>">
       <thead>
         <tr>
           <th> Actions </th>
@@ -24,12 +24,18 @@
           <?php foreach ($opt as $o => $v): ?>
             <tr>
               <td> <a id="<?= $this->__data['name'];?>_<?= $o; ?>" class="delete" href="#"> <i class="trash outline icon"></i> </a> </td>
-              <td> <?= $o; ?> </td>
-              <td> <?= (gettype($v) === "boolean") ? ($v === false) ? 'false' : 'true' : $v ; ?> </td>
+              <td class="editable"> <?= $o; ?> </td>
+              <td class="editable"> <?= (gettype($v) === "boolean") ? ($v === false) ? 'false' : 'true' : $v ; ?> </td>
             </tr>
           <?php endforeach; ?>
         <?php endforeach; ?>
       </tbody>
     </table>
+  </div>
+
+  <div id="input" class="hidden">
+    <div class="ui small input">
+      <input type="text">
+    </div>
   </div>
 <?php endif; ?>

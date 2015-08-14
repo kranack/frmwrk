@@ -15,7 +15,7 @@ abstract class Element {
     $this->_id = $id;
     $this->_class = $class;
     $this->_placeholder = null;
-    $this->__template_path = '/modules/Form/_templates/';
+    $this->__template_path = MODULES_DIRECTORY . '/Form/_templates/';
     return $this;
   }
 

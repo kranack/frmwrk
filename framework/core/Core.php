@@ -94,8 +94,7 @@ class Core {
 
     $files = array();
 
-    $dir = "modules";
-    $dh  = opendir($dir);
+    $dh  = opendir(MODULES_DIRECTORY);
     while (false !== ($filename = readdir($dh))) {
       if(!in_array($filename,array(".",".."))) {
         if (is_dir($dir . DIRECTORY_SEPARATOR . $filename)) {
@@ -179,8 +178,9 @@ class Core {
     if (empty(self::$_opt)) {
       return null;
     }
+
     foreach (self::$_opt as $dir) {
-      if ($dir === "modules") {
+      if ($dir === MODULES_DIRECTORY) {
         self::__load_modules($dir);
       } else {
         self::_require_directory($dir);
@@ -215,7 +215,7 @@ class Core {
       /* Get Classname and namespace */
       $classname = ltrim(preg_replace('/\\.[^.\\s]{3,4}$/', '', strrchr($module, "\\")), '\\');
       $namespace = ucfirst(str_replace('.php', '', $module));
-
+      $namespace = str_replace('Framework', '',$namespace);
       /* Get parent class and require class */
       self::__get_parent_classes($classname);
       if (!in_array(pathinfo($module, PATHINFO_EXTENSION), self::$__excpts)) {

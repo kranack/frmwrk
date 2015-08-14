@@ -98,7 +98,7 @@ class AdminController extends Controller {
       'users' => $r
     );
     $this->__view->set_content_type('html');
-    $this->__view->set_js (array('/views/static/js/script.js'));
+    $this->__view->set_js (array('script.js'));
     $this->__view->set_body('admin', 'bo/users.tpl')->set_template('admin/bo/default.tpl');
     $this->__view->attach_data($datas);
     echo $this->__view->display();
@@ -174,7 +174,7 @@ class AdminController extends Controller {
     );
 
     $this->__view->set_content_type('html');
-    $this->__view->set_js (array('/views/static/js/script.js'));
+    $this->__view->set_js (array('script.js'));
     $this->__view->set_body('admin', 'bo/modules.tpl')->set_template('admin/bo/default.tpl');
     $this->__view->attach_data($datas);
     echo $this->__view->display();
@@ -214,6 +214,8 @@ class AdminController extends Controller {
 
       if ($post['action'] === 'delete') {
         print_r(json_encode(array('status' => $m->delete("opts;".$post['option']))));
+      } elseif ($post['action'] === 'edit') {
+        print_r(json_encode(array('status' => $m->edit(array($post['option'] => $post['value']), true))));
       }
     }
 

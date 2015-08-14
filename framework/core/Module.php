@@ -20,8 +20,8 @@ class Module implements Module_Interface {
     return self::$_config[self::_get_classname()]['config'];
   }
 
-  public static function edit ($value = array()) {
-    return Loader::edit(self::_get_classname(), $value);
+  public static function edit ($value = array(), $opt = false) {
+    return Loader::edit(self::_get_classname(), $value, $opt);
   }
 
   public static function delete ($key) {

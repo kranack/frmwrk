@@ -3,7 +3,8 @@
 <head>
   <title><?php echo $this->__data->title; ?></title>
   <meta charset="<?php echo $this->__data->charset; ?>">
-  <link rel="stylesheet" href="/vendor/semantic-ui/semantic.min.css">
+  <link rel="stylesheet" href="/css/semantic-ui/semantic.min.css">
+  <link rel="stylesheet" href="/css/admin/default.css">
   <?php foreach ($this->__data->css as $css): ?>
     <?php echo $css; ?>
   <?php endforeach; ?>
@@ -28,8 +29,8 @@
   </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
-    <script src="/vendor/semantic-ui/semantic.min.js"></script>
-    <script src="/views/static/js/admin.js"></script>
+    <script src="/js/semantic-ui/semantic.min.js"></script>
+    <script src="/js/admin.js"></script>
     <?php if (isset($this->__data->js)):
       foreach ($this->__data->js as $js): ?>
       <?php echo $js; ?>

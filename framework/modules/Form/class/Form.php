@@ -11,7 +11,7 @@ class Form {
   public function __construct ($type, $action) {
     $this->_type = $type;
     $this->_action = $action;
-    $this->__template_path = '/modules/Form/_templates/';
+    $this->__template_path = MODULES_DIRECTORY .'/Form/_templates/';
 
     return $this;
   }

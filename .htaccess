@@ -1,7 +1,9 @@
 RewriteEngine On
 Options +Indexes
 
-RewriteEngine On
+# This works thanks to CisseR
+RewriteRule (css|js|img)/(.*)$ public/$1/$2 [L]
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 

@@ -18,7 +18,11 @@ class Loader {
     return self::_set(self::_parse_conf(self::_get_conf_path($module)), array('status' => 'disable'));
   }
 
-  public static function edit ($module, $value) {
+  public static function edit ($module, $value, $opt = false) {
+    if ($opt) {
+      return self::_set_opts(self::_parse_conf(self::_get_conf_path($module)), $value);
+    }
+
     return self::_set(self::_parse_conf(self::_get_conf_path($module)), $value);
   }
 
@@ -55,6 +59,19 @@ class Loader {
     foreach($params as $k => $v) {
       if (isset($conf[$k])) {
         $conf[$k] = $v;
+      }
+    }
+    return self::_save(self::$_current_file, $conf);
+  }
+
+  private static function _set_opts ($conf, $params = array()) {
+    if (empty($params)) {
+      return null;
+    }
+
+    foreach($params as $k => $v) {
+      if (isset($conf['opts'][$k])) {
+        $conf['opts'][$k] = $v;
       }
     }
     return self::_save(self::$_current_file, $conf);

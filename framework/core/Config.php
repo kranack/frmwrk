@@ -15,7 +15,7 @@ class Config {
   }
 
   public static function load_modules ($bool = true) {
-    Core::enable("modules");
+    Core::enable(MODULES_DIRECTORY);
   }
 
   public static function get_hooks ($load_before_core = true) {
