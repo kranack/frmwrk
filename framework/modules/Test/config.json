@@ -8,7 +8,7 @@
         "status": "disable",
         "opts": [
             {
-                "penis": true
+                "penis": false
             },
             {
                 "chaton": false

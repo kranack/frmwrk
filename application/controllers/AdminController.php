@@ -215,7 +215,7 @@ class AdminController extends Controller {
       if ($post['action'] === 'delete') {
         print_r(json_encode(array('status' => $m->delete("opts;".$post['option']))));
       } elseif ($post['action'] === 'edit') {
-        print_r(json_encode(array('status' => $m->edit(array($post['option'] => $post['value']), true))));
+        print_r(json_encode(array('status' => $m->edit(array($post['option'] => $post['value']), $post['key']))));
       }
     }
 

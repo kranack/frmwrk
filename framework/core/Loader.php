@@ -20,7 +20,7 @@ class Loader {
 
   public static function edit ($module, $value, $opt = false) {
     if ($opt) {
-      return self::_set_opts(self::_parse_conf(self::_get_conf_path($module)), $value);
+      return self::_set_opts(self::_parse_conf(self::_get_conf_path($module)), $value, $opt);
     }
 
     return self::_set(self::_parse_conf(self::_get_conf_path($module)), $value);
@@ -61,19 +61,29 @@ class Loader {
         $conf[$k] = $v;
       }
     }
+
     return self::_save(self::$_current_file, $conf);
   }
 
-  private static function _set_opts ($conf, $params = array()) {
+  private static function _set_opts ($conf, $params = array(), $key) {
     if (empty($params)) {
       return null;
     }
 
-    foreach($params as $k => $v) {
-      if (isset($conf['opts'][$k])) {
-        $conf['opts'][$k] = $v;
+    foreach ($conf['opts'] as $opt) {
+      if (in_array($key, array_keys($opt))) {
+        $k = array_search($opt, $conf['opts']);
+        $conf['opts'][$k] = array();
+        foreach ($params as $o => $v) {
+          if ($v === "false" || $v === "true") {
+            $v = ($v === 'true');
+          }
+          $conf['opts'][$k] = array($o => $v);
+        }
+        $conf['opts'] = array_values($conf['opts']);
       }
     }
+
     return self::_save(self::$_current_file, $conf);
   }
 
@@ -104,7 +114,7 @@ class Loader {
     $old = self::_parse_all($conf_file);
     $n = $old;
     $n['config'] = array_merge($old['config'],$conf);
-    $r = file_put_contents($conf_file, "[". json_encode($n, JSON_PRETTY_PRINT) ."]");
+    $r = file_put_contents($conf_file, "[". json_encode($n, JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK) ."]");
 
     self::$_current_file = null;
 

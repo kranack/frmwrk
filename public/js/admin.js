@@ -1,4 +1,8 @@
 $(document).ready(function() {
+  /* GLOBAL OPTS */
+  var POOL_CELL = null;
+
+
   /* Set sidebar */
   $('.ui.sidebar')
   .sidebar({
@@ -39,33 +43,89 @@ $(document).ready(function() {
       }, "json");
     });
 
+    /* Edit the option */
     $('.editable').on('dblclick', function() {
       if ($(this).find('input').length > 0) {
         return false;
       }
-      var cell = $(this);
-      var row = cell.parent('tr');
-      var value = cell.html().trim();
+      if (POOL_CELL === null) {
+        POOL_CELL = $(this);
+      }
+      console.log(POOL_CELL);
+      var row = POOL_CELL.parent('tr');
+      var value = POOL_CELL.html().trim();
       /* Copy input and give value */
       var div = $("#input .input").clone();
       div.attr('id', 'inputContainer');
       div.find('input').val(value).attr('id', 'inputTemp');
       /* Add input to cell */
-      cell.html(div);
+      POOL_CELL.html(div);
 
       /* Listen on the input */
-      $('#inputTemp').blur(function() {
-        var val = $('#inputTemp').val();
-        cell.remove('#inputTemp');
-        cell.html(val);
-        var name = $('table').attr('data-module');
-        var t = row.find('td');
-        $.post('/admin/modules/edit', {action:'edit',module:name,option:t[1],value:t[2]}, function(data) {
-          //row.transition('scale');
-          console.log(data);
-        }, "json");
+      $('#inputTemp').on('click', function(event) {
+        event.stopPropagation();
+      });
+      /* Listen on html for sending data */
+      $('html').on('click', function() {
+        if ($("#inputTemp").length === 0) {
+          return false;
+        }
+        if ($("#inputTemp").val().trim() === "") {
+          return false;
+        }
+
+        sendOptionData(row);
+      });
+      /* Listen on enter key for sending data */
+      $('#inputTemp').keypress(function(e) {
+        if (e.which === 13) {
+          if ($("#inputTemp").length === 0) {
+            return false;
+          }
+          if ($("#inputTemp").val().trim() === "") {
+            return false;
+          }
+
+          sendOptionData(row);
+        }
       });
     });
 
+    /* Add an option */
+    $('#addOpt').on('click', function() {
+      /*var row = $('#row').clone();
+      row.removeClass('hidden');
+      $("#opts_list table").append(row);*/
+    });
   }
+
+
+  /* FUNCTIONS DECLARATION */
+
+  function sendOptionData(row) {
+    var input_value = $('#inputTemp').val().trim();
+    POOL_CELL.remove('#inputTemp');
+    POOL_CELL.html(input_value);
+    var name = $('table').attr('data-module');
+    var t = row.find('td');
+    var k = $(t[0]).find('a').attr('id').split('_')[1];
+    var opt = $(t[1]).text().trim();
+    var val = $(t[2]).text().trim();
+
+    /* Check if values are empty before sending */
+    if (opt === "" ||
+      val === "") {
+        return false;
+      }
+
+      $.post('/admin/modules/edit', {action:"edit",module:name,key:k,option:opt,value:val}, function(data) {
+        if (data.status) {
+          /* Change the name of the id with the new key
+          and reset cell value */
+          $(t[0]).find('a').attr('id', name+'_'+opt);
+          POOL_CELL = null;
+        }
+      }, "json");
+  }
+
 });
