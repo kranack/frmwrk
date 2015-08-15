@@ -2,7 +2,7 @@
 
   namespace Tests;
 
-  require_once ('core/Headers.php');
+  require_once ('framework/core/Headers.php');
 
 class HeadersTest extends \PHPUnit_Framework_TestCase {
 

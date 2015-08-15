@@ -2,9 +2,9 @@
 
   namespace Tests;
 
-  require_once ('core/Database.php');
-  require_once ('models/Model.php');
-  require_once ('models/UserModel.php');
+  require_once ('framework/core/Database.php');
+  require_once ('application/models/Model.php');
+  require_once ('application/models/UserModel.php');
 
 class ModelTest extends \PHPUnit_Framework_TestCase {
 

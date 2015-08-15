@@ -2,8 +2,8 @@
 
   namespace Tests;
 
-  require_once ('core/Database.php');
-  require_once ('core/Connections.php');
+  require_once ('framework/core/Database.php');
+  require_once ('framework/core/Connections.php');
 
 class ConnectionsTest extends \PHPUnit_Framework_TestCase {
 

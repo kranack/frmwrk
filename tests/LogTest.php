@@ -2,8 +2,8 @@
 
   namespace Tests;
 
-  require_once ('core/Log.php');
-  require_once ('core/Exceptions/FileNotFoundException.php');
+  require_once ('framework/core/Log.php');
+  require_once ('framework/core/Exceptions/FileNotFoundException.php');
 
   define ('LOG_DIRECTORY', 'logs');
 

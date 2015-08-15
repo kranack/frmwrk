@@ -2,7 +2,7 @@
 
   namespace Tests;
 
-  require_once ('core/Core.php');
+  require_once ('framework/core/Core.php');
 
 class CoreTest extends \PHPUnit_Framework_TestCase {
 

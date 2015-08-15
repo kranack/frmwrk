@@ -18,6 +18,12 @@ class Loader {
     return self::_set(self::_parse_conf(self::_get_conf_path($module)), array('status' => 'disable'));
   }
 
+  public static function insert ($module, $value, $opt =false) {
+    if ($opt) {
+      return self::_insert_option(self::_parse_conf(self::_get_conf_path($module)), $value);
+    }
+  }
+
   public static function edit ($module, $value, $opt = false) {
     if ($opt) {
       return self::_set_opts(self::_parse_conf(self::_get_conf_path($module)), $value, $opt);
@@ -65,6 +71,23 @@ class Loader {
     return self::_save(self::$_current_file, $conf);
   }
 
+  private static function _insert_option ($conf, $params = array()) {
+    if (empty($params)) {
+      return null;
+    }
+
+    end($conf['opts']);
+    $k = key($conf['opts']);
+    foreach ($params as $o => $v) {
+      if ($v === "false" || $v === "true") {
+        $v = ($v === 'true');
+      }
+      $conf['opts'][$k++] = array($o => $v);
+    }
+
+    return self::_save(self::$_current_file, $conf);
+  }
+
   private static function _set_opts ($conf, $params = array(), $key) {
     if (empty($params)) {
       return null;
@@ -80,9 +103,9 @@ class Loader {
           }
           $conf['opts'][$k] = array($o => $v);
         }
-        $conf['opts'] = array_values($conf['opts']);
       }
     }
+    $conf['opts'] = array_values($conf['opts']);
 
     return self::_save(self::$_current_file, $conf);
   }

@@ -2,14 +2,14 @@
 
   namespace Tests;
 
-  require_once ("/modules/Forms/class/Form.php");
-  require_once ("/modules/Forms/class/Element.php");
-  require_once ("/modules/Forms/class/Label.php");
-  require_once ("/modules/Forms/class/Input.php");
-  require_once ("/modules/Forms/class/TextArea.php");
-  require_once ("/modules/Forms/class/Button.php");
-  require_once ("/modules/Forms/class/Option.php");
-  require_once ("/modules/Forms/class/Select.php");
+  require_once ("framework/modules/Forms/class/Form.php");
+  require_once ("framework/modules/Forms/class/Element.php");
+  require_once ("framework/modules/Forms/class/Label.php");
+  require_once ("framework/modules/Forms/class/Input.php");
+  require_once ("framework/modules/Forms/class/TextArea.php");
+  require_once ("framework/modules/Forms/class/Button.php");
+  require_once ("framework/modules/Forms/class/Option.php");
+  require_once ("framework/modules/Forms/class/Select.php");
 
 class FormTest extends \PHPUnit_Framework_TestCase {
 

@@ -8,13 +8,10 @@
         "status": "disable",
         "opts": [
             {
-                "penis": false
+                "penis": true
             },
             {
                 "chaton": false
-            },
-            {
-                "rigoloman": "El CAPITANO es en Brazil"
             }
         ]
     }

@@ -33,7 +33,7 @@ $(document).ready(function() {
   if ($("#opts_list").length > 0) {
 
     /* Delete the option */
-    $(".delete").on('click', function() {
+    $(document.body).on('click', '.delete', function() {
       var id = $(this).attr('id').split('_');
       var name = id[0];
       var opt = id[1];
@@ -44,14 +44,14 @@ $(document).ready(function() {
     });
 
     /* Edit the option */
-    $('.editable').on('dblclick', function() {
+    $(document.body).on('dblclick', '.editable', function() {
       if ($(this).find('input').length > 0) {
         return false;
       }
       if (POOL_CELL === null) {
         POOL_CELL = $(this);
       }
-      console.log(POOL_CELL);
+
       var row = POOL_CELL.parent('tr');
       var value = POOL_CELL.html().trim();
       /* Copy input and give value */
@@ -74,7 +74,7 @@ $(document).ready(function() {
           return false;
         }
 
-        sendOptionData(row);
+        sendOptionData(row, "edit");
       });
       /* Listen on enter key for sending data */
       $('#inputTemp').keypress(function(e) {
@@ -86,27 +86,40 @@ $(document).ready(function() {
             return false;
           }
 
-          sendOptionData(row);
+          sendOptionData(row, "edit");
         }
       });
     });
 
     /* Add an option */
-    $('#addOpt').on('click', function() {
-      /*var row = $('#row').clone();
+    $(document.body).on('click', '#addOpt', function() {
+      /* Get infos for row */
+      var cpt = $('table tr').length-1;
+      var row = $('#row').clone();
+      var name = $('table').data('module');
+      var link = row.find('a');
+      var cells = row.find('td');
+
+      /* remove id and hidden class */
+      row.removeAttr('id');
       row.removeClass('hidden');
-      $("#opts_list table").append(row);*/
+
+      /* Append to table and fill cells */
+      $("#opts_list table").append(row);
+      $(link[0]).attr('id', name+'_option'+cpt);
+      $(cells[1]).html("option"+cpt);
+      $(cells[2]).html("value"+cpt);
+
+      /* Add it to config */
+      addNewOption(row);
     });
   }
 
 
   /* FUNCTIONS DECLARATION */
 
-  function sendOptionData(row) {
-    var input_value = $('#inputTemp').val().trim();
-    POOL_CELL.remove('#inputTemp');
-    POOL_CELL.html(input_value);
-    var name = $('table').attr('data-module');
+  function addNewOption(row) {
+    var name = $('table').data('module');
     var t = row.find('td');
     var k = $(t[0]).find('a').attr('id').split('_')[1];
     var opt = $(t[1]).text().trim();
@@ -118,7 +131,32 @@ $(document).ready(function() {
         return false;
       }
 
-      $.post('/admin/modules/edit', {action:"edit",module:name,key:k,option:opt,value:val}, function(data) {
+      $.post('/admin/modules/edit', {action:"insert",module:name,option:opt,value:val}, function(data) {
+        if (data.status) {
+          /* Change the name of the id with the new key
+          and reset cell value */
+          $(t[0]).find('a').attr('id', name+'_'+opt);
+        }
+      }, "json");
+  }
+
+  function sendOptionData(row, action) {
+    var input_value = $('#inputTemp').val().trim();
+    POOL_CELL.remove('#inputTemp');
+    POOL_CELL.html(input_value);
+    var name = $('table').data('module');
+    var t = row.find('td');
+    var k = $(t[0]).find('a').attr('id').split('_')[1];
+    var opt = $(t[1]).text().trim();
+    var val = $(t[2]).text().trim();
+
+    /* Check if values are empty before sending */
+    if (opt === "" ||
+      val === "") {
+        return false;
+      }
+
+      $.post('/admin/modules/edit', {action:action,module:name,key:k,option:opt,value:val}, function(data) {
         if (data.status) {
           /* Change the name of the id with the new key
           and reset cell value */
