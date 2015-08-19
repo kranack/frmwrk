@@ -1,0 +1,15 @@
+[{
+    "infos": {
+        "name": "Cache Module",
+        "description": "Cache Module",
+        "author": "Kranack"
+    },
+    "config": {
+        "status": "enable",
+        "opts": [
+            {
+                "path": "\/data\/cache"
+            }
+        ]
+    }
+}]

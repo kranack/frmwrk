@@ -17,7 +17,7 @@ class AdminController extends Controller {
 
       if (!empty($post)) {
         if ($post['action'] === 'dropLog') {
-          return print_r(json_encode(array('status' => Log::drop())));
+          return json_encode(array('status' => Log::drop()));
         }
       }
 
@@ -146,12 +146,12 @@ class AdminController extends Controller {
     }
 
     /* Form creation */
-    $form = new Modules\Forms\Form('POST', '/admin/add_admin');
-    $login = new Modules\Forms\Input('login');
-    $login_label = new Modules\Forms\Label('Login', 'login');
-    $pwd = new Modules\Forms\Input('pwd', 'password');
-    $pwd_label = new Modules\Forms\Label('Password', 'pwd');
-    $button = new Modules\Forms\Button('button', 'Add admin', 'submit');
+    $form = new Modules\Form\Form('POST', '/admin/add_admin');
+    $login = new Modules\Form\Input('login');
+    $login_label = new Modules\Form\Label('Login', 'login');
+    $pwd = new Modules\Form\Input('pwd', 'password');
+    $pwd_label = new Modules\Form\Label('Password', 'pwd');
+    $button = new Modules\Form\Button('button', 'Add admin', 'submit');
     $form->add_obj($login->attach($login_label));
     $form->add_obj($pwd->attach($pwd_label))->add_obj($button);
 
@@ -161,7 +161,7 @@ class AdminController extends Controller {
       'form' => $form->display()
     );
     $this->__view->set_content_type("html");
-    $this->__view->set_body('admin', 'index.tpl');
+    $this->__view->set_body('admin', 'index.tpl')->set_template('admin/bo/default.tpl');
     $this->__view->attach_data($datas);
 
     return $this->display();
@@ -181,7 +181,7 @@ class AdminController extends Controller {
       } else {
         $r = $m->disable();
       }
-      return print_r(json_encode(array('status' => $m->is_enabled())));
+      return json_encode(array('status' => $m->is_enabled()));
     }
 
     Tools::admin_logged();
@@ -232,11 +232,11 @@ class AdminController extends Controller {
 
 
       if ($post['action'] === 'delete') {
-        print_r(json_encode(array('status' => $m->delete("opts;".$post['option']))));
+        json_encode(array('status' => $m->delete("opts;".$post['option'])));
       } elseif ($post['action'] === 'edit') {
-        print_r(json_encode(array('status' => $m->edit(array($post['option'] => $post['value']), $post['key']))));
+        json_encode(array('status' => $m->edit(array($post['option'] => $post['value']), $post['key'])));
       } elseif ($post['action'] === 'insert') {
-        print_r(json_encode(array('status' => $m->insert(array($post['option'] => $post['value']), true))));
+        json_encode(array('status' => $m->insert(array($post['option'] => $post['value']), true)));
       }
     }
 

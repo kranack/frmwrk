@@ -14,6 +14,10 @@ class Tools {
     Headers::save(Headers::location($url));
   }
 
+  public static function refresh () {
+    Headers::save('Refresh:0');
+  }
+
   public static function format ($text, $format = 'html') {
     if ($format === 'html') {
       return nl2br($text);

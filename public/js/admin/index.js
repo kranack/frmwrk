@@ -5,7 +5,7 @@ $(document).ready(function(){
     $("#DropLog").on('click', function(){
       $.post('/admin', {action:"dropLog"}, function(data) {
         if (data.status) {
-          console.log('dropped')
+          window.location.reload();
         } else {
           console.log('not dropped');
         }

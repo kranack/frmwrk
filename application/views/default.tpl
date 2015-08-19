@@ -35,7 +35,7 @@
           </div>
           <div class="right item">
             <?php if (Session::status() !== PHP_SESSION_ACTIVE): Session::start(); endif; ?>
-            <?php echo (Session::get('user') !== null) ? '<a href="/admin" class="item"> Access to dashboard </a><a href="/admin/logout" class="item"> Logout </a>' : '<a href="/admin/login" class="item"> Login </a>'; ?>
+            <?php echo (Session::get('user') !== null) ? '<a href="/admin" class="item"> <i class="dashboard icon"></i> Dashboard </a><a href="/admin/logout" class="item"> Logout </a>' : '<a href="/admin/login" class="item"> Login </a>'; ?>
           </div>
         </div>
       </div>

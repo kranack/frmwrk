@@ -16,6 +16,7 @@
   <div class="ui bottom attached segment pushable">
     <div style="" class="ui inverted labeled icon left inline vertical sidebar menu">
       <a class="item" href="/" ><i class="home icon"></i> Home </a>
+      <a class="item" href="/admin" ><i class="dashboard icon"></i> Dashboard </a>
       <a class="item" href="/admin/modules" ><i class="block layout icon"></i> Modules </a>
       <a class="item" href="/admin/users" ><i class="smile icon"></i> Users </a>
       <a class="item" href="/admin/add_admin" ><i class="calendar icon"></i> Add admin </a>
