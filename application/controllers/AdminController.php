@@ -12,12 +12,27 @@ class AdminController extends Controller {
 
     $user = Session::get('user');
     if (Tools::is_admin($user)) {
+
+      $post = Tools::data();
+
+      if (!empty($post)) {
+        if ($post['action'] === 'dropLog') {
+          return print_r(json_encode(array('status' => Log::drop())));
+        }
+      }
+
       // ADMIN VIEW
-      $datas = array('title' => 'Admin Dashbord', 'user' => $user);
+      $datas = array(
+        'title' => 'Admin Dashbord',
+        'user'  => $user,
+        'log'   => Tools::format(Log::get(2), 'html')
+      );
       $this->__view->set_content_type("html")->set_template('admin/bo/default.tpl');
       $this->__view->set_body('admin', 'bo/index.tpl');
+      $this->__view->set_js(array('admin/index.js'));
       $this->__view->attach_data($datas);
-      echo $this->__view->display();
+
+      return $this->display();
     }
   }
 
@@ -67,7 +82,8 @@ class AdminController extends Controller {
     $this->__view->set_content_type("html");
     $this->__view->set_body('admin', 'index.tpl')->set_template('admin/bo/default.tpl');
     $this->__view->attach_data($datas);
-    echo $this->__view->display();
+
+    return $this->display();
   }
 
   /**
@@ -101,7 +117,8 @@ class AdminController extends Controller {
     $this->__view->set_js (array('script.js'));
     $this->__view->set_body('admin', 'bo/users.tpl')->set_template('admin/bo/default.tpl');
     $this->__view->attach_data($datas);
-    echo $this->__view->display();
+
+    return $this->display();
   }
 
   public function add_admin () {
@@ -146,7 +163,8 @@ class AdminController extends Controller {
     $this->__view->set_content_type("html");
     $this->__view->set_body('admin', 'index.tpl');
     $this->__view->attach_data($datas);
-    echo $this->__view->display();
+
+    return $this->display();
   }
 
   public function modules () {
@@ -177,7 +195,7 @@ class AdminController extends Controller {
     $this->__view->set_js (array('script.js'));
     $this->__view->set_body('admin', 'bo/modules.tpl')->set_template('admin/bo/default.tpl');
     $this->__view->attach_data($datas);
-    echo $this->__view->display();
+    return $this->display();
   }
 
   public function module_infos ($name) {
@@ -197,7 +215,8 @@ class AdminController extends Controller {
     $this->__view->set_content_type('html');
     $this->__view->set_body('admin', 'bo/module_infos.tpl')->set_template('admin/bo/default.tpl');
     $this->__view->attach_data($datas);
-    echo $this->__view->display();
+
+    return $this->display();
   }
 
   public function module_edit () {

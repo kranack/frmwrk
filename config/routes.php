@@ -4,7 +4,7 @@
 
   $router->get('/', 'HomeController');
   /* Admin routes */
-  $router->get('/admin', 'AdminController');
+  $router->datas('/admin', 'AdminController');
   $router->datas('/admin/login', 'AdminController', 'login');
   $router->get('/admin/logout', 'AdminController', 'logout');
   $router->get('/admin/users', 'AdminController', 'users');

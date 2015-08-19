@@ -19,5 +19,8 @@ class Controller {
     $this->$method($_args);
   }
 
+  protected function display () {
+    return $this->__view->display();
+  }
 
 }

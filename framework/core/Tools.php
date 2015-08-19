@@ -14,6 +14,13 @@ class Tools {
     Headers::save(Headers::location($url));
   }
 
+  public static function format ($text, $format = 'html') {
+    if ($format === 'html') {
+      return nl2br($text);
+    }
+    return $text;
+  }
+
   public static function is_admin ($login, $pwd = null) {
     $db = Connections::get('core');
     $r = $db->fetch($db->select('core_admin', array('a', 'm'), "login = '$login'")->statement);

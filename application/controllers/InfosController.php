@@ -8,7 +8,8 @@ class InfosController extends Controller {
     $this->__view->set_body('infos', 'index.tpl');
     //$this->__view->set_css(array('default.css'));
     $this->__view->attach_data(array("title" => "Infos Page"));
-    $this->__view->display();
+
+    return $this->display();
   }
 
 }

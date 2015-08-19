@@ -7,9 +7,8 @@ class HomeController extends Controller {
     $this->__view->set_body('home', 'index.tpl');
     $this->__view->set_css(array('default.css'));
     $this->__view->attach_data(array("title" => "Home"));
-    $this->__view->display();
 
-    var_dump(Tools::ip());
+    return $this->display();
   }
 
   public function json() {
