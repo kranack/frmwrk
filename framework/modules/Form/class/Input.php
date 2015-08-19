@@ -5,10 +5,12 @@
 class Input extends Element {
 
   private $_type;
+  private $_label;
 
   public function __construct ($name, $type = "text", $id = null, $class = null) {
     parent::__construct($name, $id, $class);
     $this->_type = $type;
+    $this->_label = null;
   }
 
   public function placeholder ($placeholder) {

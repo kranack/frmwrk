@@ -47,7 +47,7 @@ class Log {
   }
 
   public static function _get_path () {
-    return self::$_dir . DIRECTORY_SEPARATOR . self::$_file;
+    return $_SERVER['DOCUMENT_ROOT'] . self::$_dir . DIRECTORY_SEPARATOR . self::$_file;
   }
 
   private static function _get ($path, $length = false) {

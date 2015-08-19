@@ -16,7 +16,7 @@ class Controller {
 
   public function exec ($method, $args) {
     $_args = $args[0];
-    $this->$method($_args);
+    return $this->$method($_args);
   }
 
   protected function display () {

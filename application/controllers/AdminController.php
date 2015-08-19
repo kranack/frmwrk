@@ -25,7 +25,7 @@ class AdminController extends Controller {
       $datas = array(
         'title' => 'Admin Dashbord',
         'user'  => $user,
-        'log'   => Tools::format(Log::get(2), 'html')
+        'log'   => Tools::format(Log::get(10), 'html')
       );
       $this->__view->set_content_type("html")->set_template('admin/bo/default.tpl');
       $this->__view->set_body('admin', 'bo/index.tpl');

@@ -1,1 +1,1 @@
-<button type="<?php echo $this->_type; ?>" <?php echo (isset($this->_id)) ? 'id="' . $this->_id . '"' : '';?> class="ui submit button <?php echo (isset($this->_class)) ?  $this->_class : '';?>"><?php echo $this->_text; ?></button>
+<button type="<?php echo $this->_type; ?>"<?= (isset($this->_name)) ? ' name="'. $this->_name .'"' : '' ?><?= (isset($this->_id)) ? ' id="' . $this->_id . '"' : '';?> class="ui submit button<?= (isset($this->_class)) ?  ' '.$this->_class : '';?>"><?= $this->_text; ?></button>

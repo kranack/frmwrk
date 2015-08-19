@@ -49,7 +49,11 @@ class Core {
       self::_require_directory($file);
     } else {
       if (!in_array($file, self::$_excpt)) {
-        require_once($dir . DIRECTORY_SEPARATOR . $file);
+        if ($dir === 'core') {
+          require_once($file);
+        } else {
+          require_once($dir . DIRECTORY_SEPARATOR . $file);
+        }        
         self::$__loaded [] = $dir . DIRECTORY_SEPARATOR . $file;
       }
     }

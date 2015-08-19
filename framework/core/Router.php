@@ -43,7 +43,7 @@ class Router {
       $callable = $this->set_callable($controller, $method);
       $this->_routes [$type][] = array('path' => $r['path'], 'func' => $callable, 'args' => $r['args']);
     } catch (RouterTypeException $e) {
-      print_r($e->getMessage());
+      die($e->getMessage());
     }
 
     return $this;
