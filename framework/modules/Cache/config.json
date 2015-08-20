@@ -8,7 +8,9 @@
         "status": "enable",
         "opts": [
             {
-                "path": "\/data\/cache"
+                "path": "\/data\/cache",
+                "datas": "datas.json",
+                "exceptions": "\/admin\/login;\/admin\/logout"
             }
         ]
     }

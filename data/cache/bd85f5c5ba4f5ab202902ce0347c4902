@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard - Modules</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/css/semantic-ui/semantic.min.css">
+  <link rel="stylesheet" href="/css/admin/default.css">
+  </head>
+<body>
+  <div class="ui top attached demo menu">
+    <a class="item"><i class="sidebar icon"></i> Menu </a>
+  </div>
+  <div class="ui bottom attached segment pushable">
+    <div style="" class="ui inverted labeled icon left inline vertical sidebar menu">
+      <a class="item" href="/" ><i class="home icon"></i> Home </a>
+      <a class="item" href="/admin" ><i class="dashboard icon"></i> Dashboard </a>
+      <a class="item" href="/admin/modules" ><i class="block layout icon"></i> Modules </a>
+      <a class="item" href="/admin/users" ><i class="smile icon"></i> Users </a>
+      <a class="item" href="/admin/add_admin" ><i class="calendar icon"></i> Add admin </a>
+      <a class="item" href="/admin/logout" > Logout </a>
+    </div>
+    <div class="pusher">
+      <div class="ui container">
+        <p> There are 3 modules available. </p>
+<div id="modules_list">
+  <table class="ui celled table">
+    <thead>
+      <tr>
+        <th> Name </th>
+        <th> Status </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+      <td> <a href="/admin/modules/TestModule"> TestModule</a> </td>
+      <td>
+        <div class="ui toggle checkbox">
+          <input name="TestModule_status" type="checkbox" >
+          <label> disabled</label>
+        </div>
+      </td>
+    </tr>
+      <tr>
+      <td> <a href="/admin/modules/FormModule"> FormModule</a> </td>
+      <td>
+        <div class="ui toggle checkbox">
+          <input name="FormModule_status" type="checkbox" checked="checked">
+          <label> enabled</label>
+        </div>
+      </td>
+    </tr>
+      <tr>
+      <td> <a href="/admin/modules/CacheModule"> CacheModule</a> </td>
+      <td>
+        <div class="ui toggle checkbox">
+          <input name="CacheModule_status" type="checkbox" checked="checked">
+          <label> enabled</label>
+        </div>
+      </td>
+    </tr>
+      </tbody>
+  </table>
+</div>
+      </div>
+    </div>
+  </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+    <script src="/js/semantic-ui/semantic.min.js"></script>
+    <script src="/js/admin.js"></script>
+          <script type="text/javascript" src="/js/script.js"></script>      </body>
+  </html>

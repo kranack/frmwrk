@@ -8,9 +8,14 @@
 class Router {
 
   private $_routes = array();
+  private $_callback = array();
 
-  public function __construct() {
+  public function __construct($callback = null) {
     $this->_routes = array('GET' => array(), 'POST' => array(), 'PUT' => array(), 'DELETE' => array());
+    if ($callback !== null) {
+      $this->_callback = $callback;
+      $this->_callback['callable'] = $this->set_callable($callback['class'], $callback['method'], true);
+    }
   }
 
   public function get ($path, $controller, $method = 'index') {
@@ -63,19 +68,26 @@ class Router {
         $_route = $_route['path'];
       }
       if ($_route === $a['path']) {
-        return $a['func']($args);
+        $r = $a['func']($args);
+        if (!empty($this->_callback) && $method === 'GET') {
+          $this->_callback['callable']($r);
+        }
+        return $r;
       }
     }
     throw new HTTP404Exception($route, $method);
   }
 
-  private function set_callable ($controller, $method) {
-    $callable = function() use ($controller, $method) {
+  private function set_callable ($controller, $method, $callback = false) {
+    $callable = function() use ($controller, $method, $callback) {
       static $obj = null;
       if ($obj === null) {
         $obj = new $controller;
       }
-      return call_user_func_array(array($obj, 'exec'), array($method, func_get_args()));
+      if ($callback === false) {
+        return call_user_func_array(array($obj, 'exec'), array($method, func_get_args()));
+      }
+      return call_user_func_array(array($obj, $method), func_get_args());
     };
     if (!is_callable($callable)) {
       throw new Exception("Invalid callable arg");

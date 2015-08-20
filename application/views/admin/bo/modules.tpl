@@ -1,4 +1,4 @@
-<p> There is <?= count($this->__data['modules_list']); ?> modules available. </p>
+<p> There <?= (count($this->__data['modules_list']) <= 1) ? 'is' : 'are';?> <?= count($this->__data['modules_list']); ?> modules available. </p>
 <div id="modules_list">
   <table class="ui celled table">
     <thead>

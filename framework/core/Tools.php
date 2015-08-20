@@ -6,6 +6,14 @@ class Tools {
     return $_SERVER['REMOTE_ADDR'];
   }
 
+  public static function uri () {
+    return $_SERVER['REQUEST_URI'];
+  }
+
+  public static function document_root () {
+    return $_SERVER['DOCUMENT_ROOT'];
+  }
+
   public static function data ($type = 'POST') {
     return ($type === 'POST') ? $_POST : $_GET;
   }

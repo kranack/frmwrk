@@ -38,7 +38,7 @@ class Module implements Module_Interface {
   }
 
   public static function is_enabled () {
-    return (Loader::get_config(self::_get_classname())['status'] === "enable") ? true : false;
+    return (Loader::get_config(self::_get_classname())['status'] === "enable");
   }
 
   public static function status () {

@@ -1,6 +1,12 @@
 <?php
 
-  $router = new Router;
+  /* Set cache configuration */
+  $cache_callback = [
+    'class'   => 'Modules\Cache\CacheModule',
+    'method'  => 'save'
+  ];
+
+  $router = new Router($cache_callback);
 
   $router->get('/', 'HomeController');
   /* Admin routes */
@@ -30,11 +36,19 @@
     $route = '/' . $_GET['r'];
   }
 
-  try {
-    $method = strtoupper($_SERVER["REQUEST_METHOD"]);
-    echo $router->search($method, $route);
-  } catch (HTTPException $e) {
-    $c = new HTTPErrorsController();
-    $func = "_".$e->getMessage();
-    $c->$func();
+  $method = strtoupper($_SERVER["REQUEST_METHOD"]);
+
+  /* If cache is enabled */
+  if (Modules\Cache\CacheModule::is_enabled()
+      && Modules\Cache\CacheModule::is_cached()
+      && $method === 'GET') {
+    Modules\Cache\CacheModule::dump();
+  } else {
+    try {
+      echo $router->search($method, $route);
+    } catch (HTTPException $e) {
+      $c = new HTTPErrorsController();
+      $func = "_".$e->getMessage();
+      $c->$func();
+    }
   }

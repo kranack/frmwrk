@@ -21,21 +21,21 @@
   class RouterTest extends \PHPUnit_Framework_TestCase {
 
     public function testGetRoute () {
-      $router = new \Router;
+      $router = new \Router();
 
       $router->get('/', 'Tests\TestController');
       $this->assertEquals('get', $router->search('GET', '/'));
     }
 
     public function testPostRoute () {
-      $router = new \Router;
+      $router = new \Router();
 
       $router->get('/post', 'Tests\TestController', 'post');
       $this->assertEquals('post', $router->search('GET', '/post'));
     }
 
     public function testDatasRoute () {
-      $router = new \Router;
+      $router = new \Router();
 
       $router->datas('/', 'Tests\TestController', 'getPost');
       $this->assertEquals('getPost', $router->search('GET', '/'));

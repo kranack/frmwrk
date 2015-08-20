@@ -36,7 +36,7 @@ class View {
 
   public function display () {
     $this->__data = (object) $this->__data;
-    $__content = $this->render();
+    return $this->render();
     if ($this->__enable_cache) {
       Cache::restore_from_db();
       $content = Cache::restore ($this->_template, $this->_body);
@@ -47,7 +47,7 @@ class View {
         echo $content;
       }
     } else {
-      echo $__content;
+      return $__content;
     }
   }
 

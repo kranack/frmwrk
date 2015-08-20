@@ -39,7 +39,9 @@ $(document).ready(function() {
       var opt = id[1];
       var row = $(this).parent('td').parent('tr');
       $.post('/admin/modules/edit', {action:'delete',module:name,option:opt}, function(data) {
-        row.transition('scale');
+        if (data.status) {
+          row.transition('scale');
+        }
       }, "json");
     });
 
@@ -65,6 +67,9 @@ $(document).ready(function() {
       $('#inputTemp').on('click', function(event) {
         event.stopPropagation();
       });
+      $('a').on('click', function(event) {
+        event.stopPropagation();
+      });
       /* Listen on html for sending data */
       $('html').on('click', function() {
         if ($("#inputTemp").length === 0) {
@@ -75,6 +80,7 @@ $(document).ready(function() {
         }
 
         sendOptionData(row, "edit");
+        POOL_CELL = null;
       });
       /* Listen on enter key for sending data */
       $('#inputTemp').keypress(function(e) {
@@ -87,6 +93,7 @@ $(document).ready(function() {
           }
 
           sendOptionData(row, "edit");
+          POOL_CELL = null;
         }
       });
     });

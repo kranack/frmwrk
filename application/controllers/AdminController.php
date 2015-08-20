@@ -232,11 +232,11 @@ class AdminController extends Controller {
 
 
       if ($post['action'] === 'delete') {
-        json_encode(array('status' => $m->delete("opts;".$post['option'])));
+        return json_encode(array('status' => $m->delete("opts;".$post['option'])));
       } elseif ($post['action'] === 'edit') {
-        json_encode(array('status' => $m->edit(array($post['option'] => $post['value']), $post['key'])));
+        return json_encode(array('status' => $m->edit(array($post['option'] => $post['value']), $post['key'])));
       } elseif ($post['action'] === 'insert') {
-        json_encode(array('status' => $m->insert(array($post['option'] => $post['value']), true)));
+        return json_encode(array('status' => $m->insert(array($post['option'] => $post['value']), true)));
       }
     }
 
