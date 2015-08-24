@@ -1,5 +1,4 @@
 <?php
-
   /* Database configuration */
 
   $users = array(
@@ -29,6 +28,15 @@
     'database'  => 'core'
   );
 
+  $test = array(
+    'engine'    => 'mysql',
+    'host'       => 'localhost',
+    'username'  => 'root',
+    'password'   => '',
+    'port'      => '3306',
+    'database'  => 'test'
+  );
+
   $user_db = new Database($users);
   Connections::add('user', $user_db);
   $post_db = new Database($posts);
@@ -36,10 +44,13 @@
   $core_db = new Database($core);
   Connections::add('core', $core_db);
 
+  $test_db = new Database($test);
+  Connections::add('test', $test_db);
+
   //Connections::add('test', "string");
 
   /* Migration */
-  $user = new UserModel();
+  $user = new UserModel;
   //$user->migrate();
-  $post = new PostModel();
+  $post = new PostModel($post_db);
   //$post->migrate();

@@ -9,37 +9,35 @@
     <?php endforeach; ?>
   </head>
   <body>
-    <header>
-      <div class="ui attached stackable menu">
-        <div class="ui container">
-          <a class="item" href="/">
-            <i class="home icon"></i> Home
-          </a>
-          <a class="item" href="/user">
-            <i class="users icon"></i> Users
-          </a>
-          <a class="item" href="">
-            <i class="mail icon"></i> Json
-          </a>
-          <div class="ui simple dropdown item">
-            More
-            <i class="dropdown icon"></i>
-            <div class="menu">
-              <a class="item"><i class="edit icon"></i> Edit Profile</a>
-              <a class="item"><i class="globe icon"></i> Choose Language</a>
-              <a class="item"><i class="settings icon"></i> Account Settings</a>
-            </div>
-          </div>
-          <div class="right item">
-            <div class="ui input"><input placeholder="Search..." type="text"></div>
-          </div>
-          <div class="right item">
-            <?php if (Session::status() !== PHP_SESSION_ACTIVE): Session::start(); endif; ?>
-            <?php echo (Session::get('user') !== null) ? '<a href="/admin" class="item"> <i class="dashboard icon"></i> Dashboard </a><a href="/admin/logout" class="item"> Logout </a>' : '<a href="/admin/login" class="item"> Login </a>'; ?>
+    <div class="ui attached stackable menu">
+      <div class="ui container">
+        <a class="item" href="/">
+          <i class="home icon"></i> Home
+        </a>
+        <a class="item" href="/user">
+          <i class="users icon"></i> Users
+        </a>
+        <a class="item" href="">
+          <i class="mail icon"></i> Json
+        </a>
+        <div class="ui simple dropdown item">
+          More
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            <a class="item"><i class="edit icon"></i> Edit Profile</a>
+            <a class="item"><i class="globe icon"></i> Choose Language</a>
+            <a class="item"><i class="settings icon"></i> Account Settings</a>
           </div>
         </div>
+        <div class="right item">
+          <div class="ui input"><input placeholder="Search..." type="text"></div>
+        </div>
+        <div class="right item">
+          <?php if (Session::status() !== PHP_SESSION_ACTIVE): Session::start(); endif; ?>
+          <?php echo (Session::get('user') !== null) ? '<a href="/admin" class="item"> <i class="dashboard icon"></i> Dashboard </a><a href="/admin/logout" class="item"> Logout </a>' : '<a href="/admin/login" class="item"> Login </a>'; ?>
+        </div>
       </div>
-    </header>
+    </div>
     <div class="ui container">
       <?php echo $this->__data->body; ?>
     </div>

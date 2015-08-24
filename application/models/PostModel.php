@@ -22,7 +22,7 @@ class PostModel extends Model {
     return 'post';
   }
 
-  public function insert ($args) {
+  /*public function insert ($args) {
     $db = Connections::get('post');
     var_dump($db);
     $db->insert('post', $args);
@@ -30,6 +30,6 @@ class PostModel extends Model {
 
   public function update ($args) {}
 
-  public function delete ($args) {}
+  public function delete ($args) {}*/
 
 }

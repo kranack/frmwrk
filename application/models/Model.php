@@ -1,12 +1,20 @@
 <?php
 
-abstract class Model {
+abstract class Model extends QueryBuilder {
 
-  abstract public function insert($args);
+  public function __construct ($db) {
+    if (get_class($db) === 'Database') {
+      parent::__construct($db);
+    } else {
+      throw new InvalidDatabaseException('Undefined', get_class($db));
+    }
+  }
+
+  /*abstract public function insert($args);
 
   abstract public function update($args);
 
-  abstract public function delete($args);
+  abstract public function delete($args);*/
 
   abstract public function table_name ();
 

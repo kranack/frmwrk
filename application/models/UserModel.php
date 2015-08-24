@@ -31,17 +31,13 @@ class UserModel extends Model {
    */
   protected $role;
 
+  public function __construct () {
+    parent::__construct(Connections::get('user'));
+    $this->from($this->table_name());
+  }
+
   public function table_name () {
     return 'user';
   }
-
-  public function insert ($args) {
-    $db = Connections::get('user');
-    $db->insert('user', $args);
-  }
-
-  public function update ($args) {}
-
-  public function delete ($args) {}
 
 }
