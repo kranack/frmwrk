@@ -63,6 +63,7 @@ class Database {
     return $statement->fetchAll($method);
   }
 
+
   public function insert($table, $values = array()) {
     if (empty($values)) {
       return null;
