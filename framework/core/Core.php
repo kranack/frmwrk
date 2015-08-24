@@ -32,6 +32,7 @@ class Core {
     if ($load_hooks) {
       self::load_hooks(false);
     }
+    //var_dump(self::$__loaded);
   }
 
   /**
@@ -53,7 +54,7 @@ class Core {
           require_once($file);
         } else {
           require_once($dir . DIRECTORY_SEPARATOR . $file);
-        }        
+        }
         self::$__loaded [] = $dir . DIRECTORY_SEPARATOR . $file;
       }
     }
@@ -206,34 +207,33 @@ class Core {
       return null;
     }
     usort($files, function ($a, $b) {
-      if (strpos(strtolower($a), "element") !== false) {
-        return 0;
-      } elseif (strpos(strtolower($a), "module.php") !== false) {
+      if (strpos(strtolower($a), "module.php") !== false) {
         return -1;
       } else {
         return 1;
       }
     });
-
     foreach ($files as $module) {
       /* Get Classname and namespace */
       $classname = ltrim(preg_replace('/\\.[^.\\s]{3,4}$/', '', strrchr($module, "\\")), '\\');
       $namespace = ucfirst(str_replace('.php', '', $module));
       $namespace = str_replace('Framework', '',$namespace);
       /* Get parent class and require class */
-      self::__get_parent_classes($classname);
-      if (!in_array(pathinfo($module, PATHINFO_EXTENSION), self::$__excpts)) {
-        require_once ($module);
-      }
+      //self::__get_parent_classes($classname);
 
       /* If it's a module, launch the system_init function */
       if (strpos(strtolower($classname), "module") !== false) {
+        if (!in_array(pathinfo($module, PATHINFO_EXTENSION), self::$__excpts)) {
+          require_once ($module);
+          self::$__loaded [] = $namespace;
+        }
         $m = new $namespace();
         $func = "system_init";
         $m->$func();
         self::$___modules [$classname] = $m;
+      } else {
+        break;
       }
-      self::$__loaded [] = $namespace;
     }
   }
 

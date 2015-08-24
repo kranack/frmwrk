@@ -8,9 +8,6 @@ class CacheModule extends \Module {
 
   public static function system_init () {
     parent::system_init();
-    if (!self::is_enabled()) {
-      return null;
-    }
     $opts = self::config()['opts'];
 
     foreach($opts as $opt) {

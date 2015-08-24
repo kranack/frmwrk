@@ -5,7 +5,7 @@
         "author": "Kranack"
     },
     "config": {
-        "status": "enable",
+        "status": "disable",
         "opts": [
             {
                 "path": "\/data\/cache",

@@ -8,6 +8,8 @@ class FormModule extends \Module {
   private static $__form = null;
 
   public static function system_init () {
+    $path = __DIR__ . DIRECTORY_SEPARATOR;
+    \Core::require_file($path . 'class', 'Element.php');
     parent::system_init();
     if (!self::is_enabled()) {
       return null;
@@ -16,8 +18,6 @@ class FormModule extends \Module {
     if (!\Core::is_loaded("Modules\Forms\Form")) {
       //\Log::record(__FILE__, "Form module not loaded");
     }
-    $path = __DIR__ . DIRECTORY_SEPARATOR;
-    \Core::require_file($path . 'class', 'Element.php');
   }
 
   public static function validation ($form) {
