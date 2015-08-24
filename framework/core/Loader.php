@@ -76,13 +76,12 @@ class Loader {
       return null;
     }
 
-    end($conf['opts']);
-    $k = key($conf['opts']);
+    $k = count($conf['opts'][0]);
     foreach ($params as $o => $v) {
       if ($v === "false" || $v === "true") {
         $v = ($v === 'true');
       }
-      $conf['opts'][$k++] = array($o => $v);
+      $conf['opts'][0][$o] = $v;
     }
 
     return self::_save(self::$_current_file, $conf);
@@ -93,19 +92,20 @@ class Loader {
       return null;
     }
 
-    foreach ($conf['opts'] as $opt) {
+    foreach ($conf['opts'] as $k => $opt) {
       if (in_array($key, array_keys($opt))) {
-        $k = array_search($opt, $conf['opts']);
-        $conf['opts'][$k] = array();
+        unset($opt[$key]);
         foreach ($params as $o => $v) {
           if ($v === "false" || $v === "true") {
             $v = ($v === 'true');
           }
-          $conf['opts'][$k] = array($o => $v);
+          $opt[$o] = $v;
         }
+        $conf['opts'][$k] = $opt;
       }
     }
     $conf['opts'] = array_values($conf['opts']);
+
 
     return self::_save(self::$_current_file, $conf);
   }
@@ -118,14 +118,15 @@ class Loader {
     $keys = explode(";", $key);
 
     if ($keys[0] === "opts") {
-      foreach ($conf['opts'] as $opt) {
+      foreach ($conf['opts'] as $k => $opt) {
         if (in_array($keys[1], array_keys($opt))) {
-          $k = array_search($opt, $conf['opts']);
-          unset($conf['opts'][$k]);
+          unset($opt[$keys[1]]);
+          $conf['opts'][$k] = $opt;
           $conf['opts'] = array_values($conf['opts']);
         }
       }
     }
+
     return self::_save(self::$_current_file, $conf);
   }
 

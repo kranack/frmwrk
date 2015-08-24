@@ -3,6 +3,8 @@
   namespace Tests;
 
   require_once ($_SERVER['DOCUMENT_ROOT'] . 'framework/core/Database.php');
+  require_once ($_SERVER['DOCUMENT_ROOT'] . 'framework/core/Query.php');
+  require_once ($_SERVER['DOCUMENT_ROOT'] . 'framework/core/QueryBuilder.php');
   require_once ($_SERVER['DOCUMENT_ROOT'] . 'application/models/Model.php');
   require_once ($_SERVER['DOCUMENT_ROOT'] . 'application/models/UserModel.php');
 
@@ -38,7 +40,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase {
       )
     );
 
-    $user = new \UserModel ();
+    $user = new \UserModel;
     $user_table = $user->get_array();
 
     $this->assertEquals($arrayUser, $user_table);
@@ -46,7 +48,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase {
 
 
   public function testTableName () {
-    $userModel = new \UserModel();
+    $userModel = new \UserModel;
     $user_table = $userModel->table_name();
 
     $this->assertEquals($user_table, 'user');
