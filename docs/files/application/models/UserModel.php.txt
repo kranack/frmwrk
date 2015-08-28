@@ -1,0 +1,44 @@
+<?php
+
+class UserModel extends Model {
+
+  /**
+   * @field uid
+   * @primary
+   * @autoincrement
+   * @type integer
+   */
+  protected $uid;
+
+  /**
+   * @field username
+   * @size 255
+   * @type varchar
+   */
+  protected $username;
+
+
+  /**
+   * @field passwd
+   * @size 512
+   * @type varchar
+   */
+  protected $passwd;
+
+  /**
+   * @field role
+   * @type integer
+   */
+  protected $role;
+
+  public function __construct () {
+    parent::__construct(Connections::get('user'));
+    $this->from($this->table_name());
+  }
+
+  public function table_name () {
+    return 'user';
+  }
+
+}
+

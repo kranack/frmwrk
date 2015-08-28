@@ -27,12 +27,11 @@ class Core {
       self::load_hooks();
     }
     self::load_priority_files();
-    self::_require_directory(self::$_dir);
+    self::_require_directory(CORE_DIRECTORY);
     self::_require_optionnals();
     if ($load_hooks) {
       self::load_hooks(false);
     }
-    //var_dump(self::$__loaded);
   }
 
   /**

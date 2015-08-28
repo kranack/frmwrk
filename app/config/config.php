@@ -49,7 +49,13 @@
 
   define ('LOG_DIRECTORY', DATA_DIRECTORY . DIRECTORY_SEPARATOR . 'logs');
 
-  //define ('MODEL_PATH', ROOT_PATH . PATH_SEPARATORS . MODEL_DIRECTORY );
+  /* Core sub directories */
+
+  define ('CORE_DIRECTORY_CORE', CORE_DIRECTORY . DIRECTORY_SEPARATOR . 'Core');
+
+  define ('CORE_DIRECTORY_DB', CORE_DIRECTORY . DIRECTORY_SEPARATOR . 'Database');
+
+  define ('CORE_DIRECTORY_TOOLS', CORE_DIRECTORY . DIRECTORY_SEPARATOR . 'Tools');
 
 
   define ('DEFAULT_CONF_FILE', ROOT_DIRECTORY . 'config' . DIRECTORY_SEPARATOR . 'system.json');
@@ -57,4 +63,4 @@
   /**
    * View configuration
    */
-  define ('DEFAULT_VIEW_TITLE', 'Oulalala y\'a pas de titre');
+  define ('DEFAULT_VIEW_TITLE', 'Well, there is no title here my friend');

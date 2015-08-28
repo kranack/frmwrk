@@ -1,0 +1,109 @@
+<?php
+
+class Log {
+
+  private static $_dir = LOG_DIRECTORY;
+  private static $_file = DEFAULT_LOG_FILE;
+
+  public static function set ($file) {
+    try {
+      $path = self::$_dir . DIRECTORY_SEPARATOR . $file;
+      self::_set ($path);
+    } catch (FileNotFoundException $e) {
+      return null;
+    }
+  }
+
+  public static function record ($file, $log) {
+    if ($log === null) {
+      return null;
+    }
+    $path = self::_get_path();
+    self::_write($path, $file, $log);
+  }
+
+  public static function dump () {
+    $path = self::_get_path();
+    $c = self::_get($path);
+    var_dump($c);
+  }
+
+  public static function get ($length = false) {
+    $path = self::_get_path();
+    return self::_get($path, $length);
+  }
+
+  public static function drop () {
+    $handle = fopen (self::_get_path(), "w+");
+    fclose($handle);
+    return (filesize(self::_get_path()) === 0);
+  }
+
+  private static function _set ($path) {
+    if (!file_exists($path)) {
+      throw new FileNotFoundException($path);
+    }
+    self::$_file = $file;
+  }
+
+  public static function _get_path () {
+    return $_SERVER['DOCUMENT_ROOT'] . self::$_dir . DIRECTORY_SEPARATOR . self::$_file;
+  }
+
+  private static function _get ($path, $length = false) {
+    if (is_int($length) && $length > 0) {
+      return self::_tail($path, $length, true);
+    }
+
+    return file_get_contents ($path);
+  }
+
+  private static function _write ($path, $file, $log) {
+    date_default_timezone_set (DEFAULT_TIMEZONE);
+    $datetime = date ('d-m-Y H:i:s');
+    $line = "[$datetime] : $log ($file)\r\n";
+    file_put_contents ($path, $line, FILE_APPEND);
+  }
+
+  private static function _tail ($path, $lines = 1, $adaptive = true) {
+    // Open file
+    $f = fopen($path, "rb");
+    if ($f === false) return false;
+    // Sets buffer size
+    if (!$adaptive) $buffer = 4096;
+    else $buffer = ($lines < 2 ? 64 : ($lines < 10 ? 512 : 4096));
+    // Jump to last character
+    fseek($f, -1, SEEK_END);
+    // Read it and adjust line number if necessary
+    // (Otherwise the result would be wrong if file doesn't end with a blank line)
+    if (fread($f, 1) != "\n") $lines -= 1;
+
+    // Start reading
+    $output = '';
+    $chunk = '';
+    // While we would like more
+    while (ftell($f) > 0 && $lines >= 0) {
+      // Figure out how far back we should jump
+      $seek = min(ftell($f), $buffer);
+      // Do the jump (backwards, relative to where we are)
+      fseek($f, -$seek, SEEK_CUR);
+      // Read a chunk and prepend it to our output
+      $output = ($chunk = fread($f, $seek)) . $output;
+      // Jump back to where we started reading
+      fseek($f, -mb_strlen($chunk, '8bit'), SEEK_CUR);
+      // Decrease our line counter
+      $lines -= substr_count($chunk, "\n");
+    }
+    // While we have too many lines
+    // (Because of buffer size we might have read too many)
+    while ($lines++ < 0) {
+      // Find first newline and remove all text before that
+      $output = substr($output, strpos($output, "\n") + 1);
+    }
+    // Close file and return
+    fclose($f);
+    return trim($output);
+
+  }
+}
+

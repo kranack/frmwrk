@@ -21,54 +21,54 @@
     <script src="../js/jquery.smooth-scroll.js"></script>
     <script src="../js/prism.min.js"></script>
     <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
-        <script type="text/javascript">
-        function loadExternalCodeSnippets() {
-            Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
-                var src = pre.getAttribute('data-src');
-                var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
-                var language = 'php';
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
 
-                var code = document.createElement('code');
-                code.className = 'language-' + language;
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
 
-                pre.textContent = '';
+            pre.textContent = '';
 
-                code.textContent = 'Loading…';
+            code.textContent = 'Loading…';
 
-                pre.appendChild(code);
+            pre.appendChild(code);
 
-                var xhr = new XMLHttpRequest();
+            var xhr = new XMLHttpRequest();
 
-                xhr.open('GET', src, true);
+            xhr.open('GET', src, true);
 
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState == 4) {
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
 
-                        if (xhr.status < 400 && xhr.responseText) {
-                            code.textContent = xhr.responseText;
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
 
-                            Prism.highlightElement(code);
-                        }
-                        else if (xhr.status >= 400) {
-                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
-                        }
-                        else {
-                            code.textContent = '✖ Error: File does not exist or is empty';
-                        }
+                        Prism.highlightElement(code);
                     }
-                };
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
 
-                xhr.send(null);
-            });
-        }
-
-        $(document).ready(function(){
-            loadExternalCodeSnippets();
+            xhr.send(null);
         });
-        $('#source-view').on('shown', function () {
-            loadExternalCodeSnippets();
-        })
-    </script>
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
 
     <link rel="shortcut icon" href="../images/favicon.ico"/>
     <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
@@ -93,7 +93,6 @@
                         </a>
                         <ul class="dropdown-menu">
                                                         <li><a href="../namespaces/Modules.html">\Modules</a></li>
-                                                        <li><a href="../namespaces/Tests.html">\Tests</a></li>
                                                     </ul>
                     </li>
                                         <li class="dropdown" id="charts-menu">
@@ -115,12 +114,12 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">510</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">649</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
                                 </a>
                             </li>
                             <li>
@@ -145,41 +144,78 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1591757557"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-258626209"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1591757557" class="accordion-body collapse in">
+            <div id="namespace-258626209" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1024353890"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-957511456"></a>
                                 <a href="../namespaces/Modules.html" style="margin-left: 30px; padding-left: 0">Modules</a>
             </div>
-            <div id="namespace-1024353890" class="accordion-body collapse ">
+            <div id="namespace-957511456" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-145623160"></a>
-                                <a href="../namespaces/Modules.Forms.html" style="margin-left: 30px; padding-left: 0">Forms</a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1586515051"></a>
+                                <a href="../namespaces/Modules.Cache.html" style="margin-left: 30px; padding-left: 0">Cache</a>
             </div>
-            <div id="namespace-145623160" class="accordion-body collapse ">
+            <div id="namespace-1586515051" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
                     <ul>
-                                                                                                    <li class="class"><a href="../classes/Modules.Forms.Button.html">Button</a></li>
-                                                    <li class="class"><a href="../classes/Modules.Forms.Element.html">Element</a></li>
-                                                    <li class="class"><a href="../classes/Modules.Forms.Form.html">Form</a></li>
-                                                    <li class="class"><a href="../classes/Modules.Forms.FormModule.html">FormModule</a></li>
-                                                    <li class="class"><a href="../classes/Modules.Forms.Input.html">Input</a></li>
-                                                    <li class="class"><a href="../classes/Modules.Forms.Label.html">Label</a></li>
-                                                    <li class="class"><a href="../classes/Modules.Forms.Option.html">Option</a></li>
-                                                    <li class="class"><a href="../classes/Modules.Forms.Select.html">Select</a></li>
-                                                    <li class="class"><a href="../classes/Modules.Forms.TextArea.html">TextArea</a></li>
+                                                                                                    <li class="class"><a href="../classes/Modules.Cache.Cache.html">Cache</a></li>
+                                                    <li class="class"><a href="../classes/Modules.Cache.CacheModule.html">CacheModule</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1492836111"></a>
+                                <a href="../namespaces/Modules.Form.html" style="margin-left: 30px; padding-left: 0">Form</a>
+            </div>
+            <div id="namespace-1492836111" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Modules.Form.Button.html">Button</a></li>
+                                                    <li class="class"><a href="../classes/Modules.Form.Element.html">Element</a></li>
+                                                    <li class="class"><a href="../classes/Modules.Form.Form.html">Form</a></li>
+                                                    <li class="class"><a href="../classes/Modules.Form.FormModule.html">FormModule</a></li>
+                                                    <li class="class"><a href="../classes/Modules.Form.Input.html">Input</a></li>
+                                                    <li class="class"><a href="../classes/Modules.Form.Label.html">Label</a></li>
+                                                    <li class="class"><a href="../classes/Modules.Form.Option.html">Option</a></li>
+                                                    <li class="class"><a href="../classes/Modules.Form.Select.html">Select</a></li>
+                                                    <li class="class"><a href="../classes/Modules.Form.TextArea.html">TextArea</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-235488799"></a>
+                                <a href="../namespaces/Modules.Test.html" style="margin-left: 30px; padding-left: 0">Test</a>
+            </div>
+            <div id="namespace-235488799" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Modules.Test.TestModule.html">TestModule</a></li>
                                             </ul>
                 </div>
             </div>
@@ -194,34 +230,12 @@
         </div>
     </div>
 
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-953688217"></a>
-                                <a href="../namespaces/Tests.html" style="margin-left: 30px; padding-left: 0">Tests</a>
-            </div>
-            <div id="namespace-953688217" class="accordion-body collapse ">
-                <div class="accordion-inner">
-
                     
                     <ul>
-                                                                                                    <li class="class"><a href="../classes/Tests.ConnectionsTest.html">ConnectionsTest</a></li>
-                                                    <li class="class"><a href="../classes/Tests.CoreTest.html">CoreTest</a></li>
-                                                    <li class="class"><a href="../classes/Tests.FormTest.html">FormTest</a></li>
-                                                    <li class="class"><a href="../classes/Tests.HeadersTest.html">HeadersTest</a></li>
-                                                    <li class="class"><a href="../classes/Tests.LogTest.html">LogTest</a></li>
-                                                    <li class="class"><a href="../classes/Tests.ModelTest.html">ModelTest</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-                    
-                    <ul>
-                                                    <li class="interface"><a href="../classes/Hooks.html">Hooks</a></li>
-                                                    <li class="interface"><a href="../classes/Module.html">Module</a></li>
-                                                                                                    <li class="class"><a href="../classes/Config.html">Config</a></li>
+                                                    <li class="interface"><a href="../classes/Hooks_Interface.html">Hooks_Interface</a></li>
+                                                    <li class="interface"><a href="../classes/Module_Interface.html">Module_Interface</a></li>
+                                                                                                    <li class="class"><a href="../classes/AdminController.html">AdminController</a></li>
+                                                    <li class="class"><a href="../classes/Config.html">Config</a></li>
                                                     <li class="class"><a href="../classes/Connections.html">Connections</a></li>
                                                     <li class="class"><a href="../classes/ContactController.html">ContactController</a></li>
                                                     <li class="class"><a href="../classes/Controller.html">Controller</a></li>
@@ -232,6 +246,7 @@
                                                     <li class="class"><a href="../classes/HeaderStatusException.html">HeaderStatusException</a></li>
                                                     <li class="class"><a href="../classes/HeaderTypeException.html">HeaderTypeException</a></li>
                                                     <li class="class"><a href="../classes/HomeController.html">HomeController</a></li>
+                                                    <li class="class"><a href="../classes/Hooks.html">Hooks</a></li>
                                                     <li class="class"><a href="../classes/HTTP403Exception.html">HTTP403Exception</a></li>
                                                     <li class="class"><a href="../classes/HTTP404Exception.html">HTTP404Exception</a></li>
                                                     <li class="class"><a href="../classes/HTTP500Exception.html">HTTP500Exception</a></li>
@@ -239,16 +254,19 @@
                                                     <li class="class"><a href="../classes/HTTPException.html">HTTPException</a></li>
                                                     <li class="class"><a href="../classes/InfosController.html">InfosController</a></li>
                                                     <li class="class"><a href="../classes/InvalidDatabaseException.html">InvalidDatabaseException</a></li>
+                                                    <li class="class"><a href="../classes/Loader.html">Loader</a></li>
                                                     <li class="class"><a href="../classes/Log.html">Log</a></li>
                                                     <li class="class"><a href="../classes/Model.html">Model</a></li>
+                                                    <li class="class"><a href="../classes/Module.html">Module</a></li>
                                                     <li class="class"><a href="../classes/PostModel.html">PostModel</a></li>
-                                                    <li class="class"><a href="../classes/Response.html">Response</a></li>
+                                                    <li class="class"><a href="../classes/QueryBuilder.html">QueryBuilder</a></li>
                                                     <li class="class"><a href="../classes/Router.html">Router</a></li>
                                                     <li class="class"><a href="../classes/RouterTypeException.html">RouterTypeException</a></li>
                                                     <li class="class"><a href="../classes/Security.html">Security</a></li>
                                                     <li class="class"><a href="../classes/SecurityController.html">SecurityController</a></li>
-                                                    <li class="class"><a href="../classes/TestController.html">TestController</a></li>
+                                                    <li class="class"><a href="../classes/Session.html">Session</a></li>
                                                     <li class="class"><a href="../classes/TestHook.html">TestHook</a></li>
+                                                    <li class="class"><a href="../classes/Tools.html">Tools</a></li>
                                                     <li class="class"><a href="../classes/UserController.html">UserController</a></li>
                                                     <li class="class"><a href="../classes/UserModel.html">UserModel</a></li>
                                                     <li class="class"><a href="../classes/View.html">View</a></li>
@@ -265,61 +283,84 @@
             <div class="row-fluid">
                 <div class="span8 content class">
                     <nav>
-                                                <a href="../namespaces/default.html">\</a>
+                                                <a href="../namespaces/default.html">\</a> <i class="icon-level-up"></i>
                                             </nav>
                     <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
 
                     <h1><small>\</small>Hooks</h1>
                     <p><em></em></p>
                     
-
+                    
+                                        
                     <section id="summary">
                         <h2>Summary</h2>
                         <section class="row-fluid heading">
-                            <section class="span6">
+                            <section class="span4">
                                 <a href="#methods">Methods</a>
                             </section>
-                            <section class="span6">
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
                                 <a href="#constants">Constants</a>
                             </section>
                         </section>
                         <section class="row-fluid public">
-                            <section class="span6">
-                                                                    <a href="../classes/Hooks.html#method_info">info()</a><br />
-                                                                    <a href="../classes/Hooks.html#method_system_init">system_init()</a><br />
+                            <section class="span4">
+                                                                    <a href="../classes/Hooks.html#method_infos" class="">infos()</a><br />
+                                                                    <a href="../classes/Hooks.html#method_system_init" class="">system_init()</a><br />
                                                             </section>
-                            <section class="span6">
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
                                                                     <em>No constants found</em>
                                                             </section>
                         </section>
                         <section class="row-fluid protected">
-                            <section class="span6">
+                            <section class="span4">
                                                                     <em>No protected methods found</em>
                                                             </section>
-                            <section class="span6">
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
                                 <em>N/A</em>
                             </section>
                         </section>
                         <section class="row-fluid private">
-                            <section class="span6">
+                            <section class="span4">
                                                                     <em>No private methods found</em>
                                                             </section>
-                            <section class="span6">
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
                                 <em>N/A</em>
                             </section>
                         </section>
                     </section>
                 </div>
                 <aside class="span4 detailsbar">
-                                        <dl>
+                                        
+                    
+                    <dl>
                         <dt>File</dt>
-                            <dd>
-                                <a href="../files/core.Hooks.html"><div class="path-wrapper">core\Hooks.php</div></a>
-                            </dd>
+                            <dd><a href="../files/framework.core.Core.Hooks.html"><div class="path-wrapper">framework\core\Core\Hooks.php</div></a></dd>
                                                 <dt>Package</dt>
-                            <dd><div class="namespace-wrapper">\Default</div></dd>
-                                                
-                                            </dl>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\Hooks</div>
+                            </dd>
+
+                                                                            <dt>Implements</dt>
+                                                        <dd><a href="../classes/Hooks_Interface.html"><div class="namespace-wrapper">\Hooks_Interface</div></a></dd>
+                        
+                        
+                        
+                        
+                                                                        </dl>
                     <h2>Tags</h2>
                     <table class="table table-condensed">
                                             <tr><td colspan="2"><em>None found</em></td></tr>
@@ -327,21 +368,21 @@
                 </aside>
             </div>
 
-            
-                        <div class="row-fluid">
-                <div class="span8 content class">
-                    <h2>Methods</h2>
-                </div>
+                        
+                        
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
                 <aside class="span4 detailsbar"></aside>
             </div>
 
                                     <div class="row-fluid">
         <div class="span8 content class">
-            <a id="method_info" name="method_info" class="anchor"></a>
+            <a id="method_infos" name="method_infos" class="anchor"></a>
             <article class="method">
-                <h3 class="public ">info()</h3>
+                <h3 class="public ">infos()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">info() </pre>
+                <pre class="signature" style="margin-right: 54px;">infos() </pre>
                 <p><em></em></p>
                 
 
@@ -396,7 +437,7 @@
             <h3 id="source-view-label">Hooks.php</h3>
         </div>
         <div class="modal-body">
-            <pre data-src="../files/core\Hooks.php.txt" class="language-php"></pre>
+            <pre data-src="../files/framework\core\Core\Hooks.php.txt" class="language-php line-numbers"></pre>
         </div>
     </div>
 
@@ -410,7 +451,6 @@
                             <div>
                                 <ul>
                                                                             <li><a href="../namespaces/Modules.html">\Modules</a></li>
-                                                                            <li><a href="../namespaces/Tests.html">\Tests</a></li>
                                                                     </ul>
                             </div>
                         </section>
@@ -438,7 +478,7 @@
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on July 25th, 2015 at 11:13.
+                    on August 28th, 2015 at 12:06.
                 </section>
             </section>
         </section>

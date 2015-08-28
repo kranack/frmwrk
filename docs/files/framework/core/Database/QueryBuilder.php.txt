@@ -1,0 +1,87 @@
+<?php
+
+  class QueryBuilder extends Query {
+
+    public function __construct ($connection) {
+      parent::__construct($connection);
+    }
+
+    /**
+     *  Public functions
+     */
+    public function get ($limit = null, $start = null) {
+      if ($limit !== null && is_int($limit)) {
+        if ($start !== null && is_int($start)
+            && $start < $limit) {
+          $this->limit($limit, $start);
+        } else {
+          $this->limit($limit);
+        }
+      }
+
+      return $this->run();
+    }
+
+    public function run ($complete = false) {
+      $this->generate();
+
+      return $this->_run();
+    }
+
+    public function select ($fields) {
+      $this->_select($fields);
+      return $this;
+    }
+
+    public function selectOne ($fields) {
+      $this->_select($fields, 'distinct');
+      return $this;
+    }
+
+    public function insert ($table, $fields) {
+      if (!empty($fields)) {
+        $this->_insert($table, $fields);
+      }
+      return $this;
+    }
+
+    public function update ($table, $fields) {
+      if (!empty($fields)) {
+        $this->_update($table, $fields);
+      }
+      return $this;
+    }
+
+    public function delete ($table) {
+      $this->_delete($table);
+      return $this;
+    }
+
+    public function from ($tablename) {
+      $this->_from = $tablename;
+      return $this;
+    }
+
+    public function where ($cond) {
+      $this->_where = $this->_secureWhere($cond);
+      return $this;
+    }
+
+    public function limit ($limit, $start = 0) {
+      if ($start !== 0 && is_int($start)) {
+        $this->_start_limit = $start;
+      }
+      $this->_limit = $limit;
+      return $this;
+    }
+
+    public function dump () {
+      var_dump($this->getSQL());
+    }
+
+    public function getSQL () {
+      return $this->_sql;
+    }
+
+  }
+
