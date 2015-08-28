@@ -12,11 +12,14 @@
     define('PATH_SEPARATORS', PATH_SEPARATOR);
   }
 
-  require_once ($_SERVER['DOCUMENT_ROOT'] . 'framework/core/Router.php');
+  if (!defined ('ROOT_DIR'))
+    define ('ROOT_DIR', dirname(dirname(__DIR__)), true);
 
-  require_once ($_SERVER['DOCUMENT_ROOT'] . 'framework/core/View.php');
+  require_once (ROOT_DIR . '/app/framework/core/Core/Router.php');
 
-  require_once ($_SERVER['DOCUMENT_ROOT'] . 'application/controllers/Controller.php');
+  require_once (ROOT_DIR . '/app/framework/core/Core/View.php');
+
+  require_once (ROOT_DIR . '/app/application/controllers/Controller.php');
 
   class RouterTest extends \PHPUnit_Framework_TestCase {
 

@@ -2,7 +2,10 @@
 
   namespace Tests;
 
-  require_once ($_SERVER['DOCUMENT_ROOT'] . 'framework/core/Headers.php');
+  if (!defined ('ROOT_DIR'))
+    define ('ROOT_DIR', dirname(dirname(__DIR__)), true);
+
+  require_once (ROOT_DIR . '/app/framework/core/Tools/Headers.php');
 
 class HeadersTest extends \PHPUnit_Framework_TestCase {
 

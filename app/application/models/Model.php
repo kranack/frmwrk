@@ -39,7 +39,8 @@ abstract class Model extends QueryBuilder {
           }
         }
       }
-      $vars ['fields'][] = $properties;
+      if (!empty($properties))
+        $vars ['fields'][] = $properties;
     }
     return $vars;
   }

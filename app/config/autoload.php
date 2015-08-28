@@ -21,6 +21,8 @@ function autoload ($classname) {
     require_once (MODULES_DIRECTORY . DIRECTORY_SEPARATOR . $classname . '.php');
   } elseif (file_exists(CONTROLLERS_DIRECTORY . DIRECTORY_SEPARATOR . $classname . '.php')) {
     require_once (CONTROLLERS_DIRECTORY . DIRECTORY_SEPARATOR . $classname . '.php');
+  } elseif (file_exists(CORE_DIRECTORY . DIRECTORY_SEPARATOR .  'Exceptions' . DIRECTORY_SEPARATOR . $classname . '.php')) {
+    require_once (CORE_DIRECTORY . DIRECTORY_SEPARATOR .  'Exceptions' . DIRECTORY_SEPARATOR . $classname . '.php');
   }
   /*if (endsWith(strtolower($classname), "controller")) {
     $seek_dir = 'controllers';

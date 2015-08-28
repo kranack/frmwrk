@@ -2,11 +2,18 @@
 
   namespace Tests;
 
-  require_once ($_SERVER['DOCUMENT_ROOT'] . 'framework/core/Database.php');
-  require_once ($_SERVER['DOCUMENT_ROOT'] . 'framework/core/Query.php');
-  require_once ($_SERVER['DOCUMENT_ROOT'] . 'framework/core/QueryBuilder.php');
-  require_once ($_SERVER['DOCUMENT_ROOT'] . 'application/models/Model.php');
-  require_once ($_SERVER['DOCUMENT_ROOT'] . 'application/models/UserModel.php');
+  if (!defined ('ROOT_DIR'))
+    define ('ROOT_DIR', dirname(dirname(__DIR__)), true);
+
+  /*require_once (ROOT_DIR . '/app/framework/core/Tools/Session.php');
+  require_once (ROOT_DIR . '/app/application/controllers/Controller.php');
+  require_once (ROOT_DIR . '/app/application/controllers/HTTPErrorsController.php');
+  require_once (ROOT_DIR . '/app/framework/core/Exceptions/InvalidDatabaseException.php');*/
+  require_once (ROOT_DIR . '/app/framework/core/Database/Database.php');
+  require_once (ROOT_DIR . '/app/framework/core/Database/Query.php');
+  require_once (ROOT_DIR . '/app/framework/core/Database/QueryBuilder.php');
+  require_once (ROOT_DIR . '/app/application/models/Model.php');
+  require_once (ROOT_DIR . '/app/application/models/UserModel.php');
 
 class ModelTest extends \PHPUnit_Framework_TestCase {
 
@@ -40,6 +47,17 @@ class ModelTest extends \PHPUnit_Framework_TestCase {
       )
     );
 
+    $users = array(
+      'engine'    => 'mysql',
+      'host'       => 'localhost',
+      'username'  => 'root',
+      'password'   => '',
+      'port'      => '3306',
+      'database'  => 'users'
+    );
+    $user_db = new \Database($users);
+    \Connections::add('user', $user_db);
+
     $user = new \UserModel;
     $user_table = $user->get_array();
 
@@ -48,6 +66,17 @@ class ModelTest extends \PHPUnit_Framework_TestCase {
 
 
   public function testTableName () {
+    $users = array(
+      'engine'    => 'mysql',
+      'host'       => 'localhost',
+      'username'  => 'root',
+      'password'   => '',
+      'port'      => '3306',
+      'database'  => 'users'
+    );
+    $user_db = new \Database($users);
+    \Connections::add('user', $user_db);
+
     $userModel = new \UserModel;
     $user_table = $userModel->table_name();
 

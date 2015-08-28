@@ -49,8 +49,8 @@ class Core {
       self::_require_directory($file);
     } else {
       if (!in_array($file, self::$_excpt)) {
-        if ($dir === 'core') {
-          require_once($file);
+        if (strpos($dir, 'core') !== false) {
+          require_once(ROOT_DIRECTORY . CORE_DIRECTORY . DIRECTORY_SEPARATOR . $file);
         } else {
           require_once($dir . DIRECTORY_SEPARATOR . $file);
         }

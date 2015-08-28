@@ -2,8 +2,11 @@
 
   namespace Tests;
 
-  require_once ($_SERVER['DOCUMENT_ROOT'] . 'framework/core/Database.php');
-  require_once ($_SERVER['DOCUMENT_ROOT'] . 'framework/core/Connections.php');
+  if (!defined ('ROOT_DIR'))
+    define ('ROOT_DIR', dirname(dirname(__DIR__)), true);
+
+  require_once (ROOT_DIR . '/app/framework/core/Database/Database.php');
+  require_once (ROOT_DIR . '/app/framework/core/Database/Connections.php');
 
 class ConnectionsTest extends \PHPUnit_Framework_TestCase {
 

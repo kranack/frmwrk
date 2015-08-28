@@ -28,7 +28,7 @@ class View {
       "css"       =>  array(),
       "title"     =>  DEFAULT_VIEW_TITLE
     );
-    $this->__view_root_path = APP_DIRECTORY . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR;
+    $this->__view_root_path = ROOT_DIRECTORY . DIRECTORY_SEPARATOR . APP_DIRECTORY . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR;
     $this->__cache_root_path = 'cache' . PATH_SEPARATORS;
 
     $this->__enable_cache = false;

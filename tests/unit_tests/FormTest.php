@@ -2,14 +2,17 @@
 
   namespace Tests;
 
-  require_once ($_SERVER['DOCUMENT_ROOT'] . "framework/modules/Form/class/Form.php");
-  require_once ($_SERVER['DOCUMENT_ROOT'] . "framework/modules/Form/class/Element.php");
-  require_once ($_SERVER['DOCUMENT_ROOT'] . "framework/modules/Form/class/Label.php");
-  require_once ($_SERVER['DOCUMENT_ROOT'] . "framework/modules/Form/class/Input.php");
-  require_once ($_SERVER['DOCUMENT_ROOT'] . "framework/modules/Form/class/TextArea.php");
-  require_once ($_SERVER['DOCUMENT_ROOT'] . "framework/modules/Form/class/Button.php");
-  require_once ($_SERVER['DOCUMENT_ROOT'] . "framework/modules/Form/class/Option.php");
-  require_once ($_SERVER['DOCUMENT_ROOT'] . "framework/modules/Form/class/Select.php");
+  if (!defined ('ROOT_DIR'))
+    define ('ROOT_DIR', dirname(dirname(__DIR__)), true);
+
+  require_once (ROOT_DIR . "/app/framework/modules/Form/class/Form.php");
+  require_once (ROOT_DIR . "/app/framework/modules/Form/class/Element.php");
+  require_once (ROOT_DIR . "/app/framework/modules/Form/class/Label.php");
+  require_once (ROOT_DIR . "/app/framework/modules/Form/class/Input.php");
+  require_once (ROOT_DIR . "/app/framework/modules/Form/class/TextArea.php");
+  require_once (ROOT_DIR . "/app/framework/modules/Form/class/Button.php");
+  require_once (ROOT_DIR . "/app/framework/modules/Form/class/Option.php");
+  require_once (ROOT_DIR . "/app/framework/modules/Form/class/Select.php");
 
 class FormTest extends \PHPUnit_Framework_TestCase {
 
